@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lencería Keren · Tienda Mayorista</title>
+<meta name="description" content="Tienda mayorista de Lencería Keren — pedidos por WhatsApp, lista de precios y catálogos">
+<meta property="og:title" content="Lencería Keren · Tienda Mayorista">
+<meta property="og:description" content="Armá tu pedido mayorista y envialo por WhatsApp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --marfil:#FBF5F6;
+    --papel:#FFFFFF;
+    --tinta:#241820;
+    --gris:#8C7680;
+    --ciruela:#E74275;
+    --ciruela-suave:#FCE5EC;
+    --blush:#F6BBD1;
+    --linea:#F0DEE4;
+    --radio:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,sans-serif;
+    background:var(--marfil);
+    color:var(--tinta);
+    font-size:15px;
+    line-height:1.4;
+  }
+
+  /* ============ HEADER ============ */
+  header{
+    background:var(--papel);
+    border-bottom:1px solid var(--linea);
+    padding:20px 16px 0;
+    position:fixed; top:0; left:0; right:0; z-index:20;
+    transition:padding .25s ease;
+  }
+  header.compact{padding-top:10px}
+  .brand, .localinfo, #controls{
+    max-height:1000px; overflow:hidden;
+    transition:max-height .25s ease, opacity .2s ease, margin .25s ease;
+  }
+  header.compact .brand,
+  header.compact .localinfo,
+  header.compact #controls{
+    max-height:0; opacity:0; margin-top:0; margin-bottom:0;
+  }
+  .brand{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; max-width:760px; margin:0 auto;
+  }
+  .brand h1{
+    font-family:'Fraunces',serif;
+    font-weight:700; font-size:1.6rem; letter-spacing:.01em;
+  }
+  .brand h1 em{font-style:normal; color:var(--ciruela)}
+  .brand-right{display:flex; align-items:center; gap:9px}
+  .social{display:flex; gap:9px}
+  .social a{
+    display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; border-radius:50%;
+    border:none; color:#fff;
+    transition:transform .15s, filter .15s;
+    flex-shrink:0;
+  }
+  .social a:hover, .social a:active{transform:scale(1.08); filter:brightness(1.05)}
+  .social a svg{width:18px; height:18px}
+  .social a.ig{
+    background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  }
+  .cart-btn{
+    position:relative; border:none; cursor:pointer;
+    background:var(--ciruela); color:#fff;
+    padding:9px 16px; border-radius:100px;
+    font-family:'Inter',sans-serif; font-size:.85rem; font-weight:600;
+    display:flex; align-items:center; gap:8px;
+    transition:filter .15s;
+  }
+  .cart-btn:hover{filter:brightness(1.06)}
+  .cart-count{
+    background:#fff; color:var(--ciruela);
+    border-radius:100px; font-family:'JetBrains Mono',monospace;
+    font-size:.72rem; font-weight:600;
+    min-width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center;
+    padding:0 5px;
+  }
+  .localinfo{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; max-width:760px; margin:8px auto 0;
+  }
+  .localinfo .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.62rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gris); flex-shrink:0;
+  }
+  .localinfo .addr{
+    font-size:.75rem; color:var(--gris);
+    display:flex; align-items:center; gap:5px;
+    text-align:right;
+  }
+  .tabs{
+    display:flex; gap:2px;
+    max-width:760px; margin:12px auto 0;
+    border-bottom:1px solid var(--linea);
+  }
+  .tab{
+    font-family:'Inter',sans-serif; font-size:.85rem; font-weight:600;
+    padding:10px 16px; background:none; border:none; cursor:pointer;
+    color:var(--gris);
+    border-bottom:2.5px solid transparent;
+    margin-bottom:-1px;
+    transition:color .15s, border-color .15s;
+  }
+  .tab.active{color:var(--ciruela); border-bottom-color:var(--ciruela)}
+
+  .searchwrap{max-width:760px; margin:14px auto 0}
+  .searchbox{
+    display:flex; align-items:center; gap:10px;
+    background:var(--marfil);
+    border:1.5px solid var(--linea);
+    border-radius:var(--radio);
+    padding:12px 14px;
+    transition:border-color .15s;
+  }
+  .searchbox:focus-within{border-color:var(--ciruela)}
+  .searchbox input{
+    flex:1; border:none; background:transparent; outline:none;
+    font-family:'JetBrains Mono',monospace; font-size:.95rem;
+    color:var(--tinta);
+  }
+  .searchbox input::placeholder{color:var(--gris); font-family:'Inter',sans-serif}
+  .chips{
+    display:flex; flex-wrap:wrap; gap:8px; max-width:760px; margin:10px auto 0;
+    padding-bottom:12px;
+  }
+  .chip{
+    font-family:'Inter',sans-serif; font-size:.74rem; font-weight:500;
+    padding:6px 12px; border-radius:100px;
+    border:1px solid var(--linea); background:var(--papel);
+    color:var(--tinta); cursor:pointer; white-space:nowrap;
+    transition:all .12s;
+  }
+  .chip.active{background:var(--ciruela); border-color:var(--ciruela); color:#fff}
+
+  /* ============ META ============ */
+  .meta{
+    max-width:760px; margin:0 auto; padding:14px 16px 4px;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .meta .count{
+    font-family:'JetBrains Mono',monospace; font-size:.7rem;
+    letter-spacing:.08em; color:var(--gris); text-transform:uppercase;
+  }
+
+  main{max-width:760px; margin:0 auto; padding:6px 16px 30px}
+
+  /* ============ VISTA TIENDA (cards estilo combos) ============ */
+  .grid{
+    display:grid; gap:18px;
+    grid-template-columns:1fr;
+  }
+  @media(min-width:600px){ .grid{grid-template-columns:repeat(2, 1fr)} }
+  .pcard{
+    background:var(--papel);
+    border:1px solid var(--linea);
+    border-radius:14px;
+    overflow:hidden; position:relative;
+    display:flex; flex-direction:column;
+    transition:all .25s;
+  }
+  .pcard::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:var(--ciruela); transform:scaleX(0); transform-origin:left;
+    transition:transform .3s ease; z-index:2;
+  }
+  .pcard:hover{
+    border-color:var(--ciruela);
+    box-shadow:0 8px 28px rgba(231,66,117,.12);
+    transform:translateY(-3px);
+  }
+  .pcard:hover::before{transform:scaleX(1)}
+  .pimg{
+    width:100%; aspect-ratio:4/3;
+    background:linear-gradient(135deg, #faf3f5 0%, var(--linea) 100%);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .pimg .ph{
+    font-family:'JetBrains Mono',monospace; font-size:.68rem;
+    letter-spacing:.25em; text-transform:uppercase; font-weight:500;
+    color:var(--gris);
+  }
+  .pimg img{width:100%; height:100%; object-fit:cover}
+  .pimg-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:28px; height:28px; border-radius:50%; border:none;
+    background:rgba(36,24,32,.45); color:#fff;
+    font-size:1.1rem; line-height:1; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .15s;
+  }
+  .pimg-arrow:hover{background:rgba(36,24,32,.7)}
+  .pimg-arrow.prev{left:8px}
+  .pimg-arrow.next{right:8px}
+  .pimg-dots{
+    position:absolute; bottom:9px; left:50%; transform:translateX(-50%);
+    display:flex; gap:5px;
+  }
+  .pimg-dot{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,.55); cursor:pointer;
+    transition:background .15s, transform .15s;
+  }
+  .pimg-dot.active{background:#fff; transform:scale(1.25)}
+  .badge-agotado{
+    position:absolute; top:10px; left:10px;
+    background:var(--tinta); color:#fff;
+    font-family:'JetBrains Mono',monospace; font-size:.6rem;
+    letter-spacing:.08em; text-transform:uppercase;
+    padding:4px 9px; border-radius:100px;
+  }
+  .pbody{padding:18px; display:flex; flex-direction:column; flex:1}
+  .pbadge{
+    display:inline-block; align-self:flex-start;
+    background:var(--ciruela-suave); color:var(--ciruela);
+    font-size:.64rem; font-weight:600; letter-spacing:.15em;
+    text-transform:uppercase; padding:4px 10px;
+    border-radius:4px; margin-bottom:10px;
+  }
+  .pname{
+    font-family:'Fraunces',serif; font-size:1.2rem; font-weight:700;
+    line-height:1.2; margin-bottom:6px;
+  }
+  .pdesc{font-size:.8rem; color:var(--gris); line-height:1.5; margin-bottom:14px}
+  .pincludes{
+    margin-bottom:14px; padding:12px 14px;
+    background:var(--marfil); border-radius:8px;
+  }
+  .pincludes-title{
+    font-family:'JetBrains Mono',monospace; font-size:.62rem;
+    letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ciruela); font-weight:500; margin-bottom:7px;
+  }
+  .pincludes-list{list-style:none; padding:0; margin:0}
+  .pincludes-list li{
+    font-size:.78rem; color:var(--tinta);
+    padding:3px 0 3px 14px; position:relative; line-height:1.45;
+  }
+  .pincludes-list li::before{
+    content:""; position:absolute; left:0; top:10px;
+    width:5px; height:5px; background:var(--ciruela); border-radius:50%;
+  }
+  .pnote{
+    font-size:.72rem; color:var(--gris); font-style:italic;
+    margin-top:8px; padding-top:8px; border-top:1px dashed var(--linea);
+    line-height:1.45;
+  }
+  .pmeta{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding:12px 0 14px; border-top:1px solid var(--linea);
+    margin-top:auto;
+  }
+  .pmeta-label{
+    font-family:'JetBrains Mono',monospace; font-size:.6rem;
+    letter-spacing:.18em; text-transform:uppercase;
+    color:var(--gris); font-weight:500; display:block;
+  }
+  .pmeta-qty{display:flex; flex-direction:column; align-items:center}
+  .pmeta-qty-value{
+    font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; line-height:1.15;
+  }
+  .pmeta-price{display:flex; flex-direction:column; align-items:flex-end}
+  .pmeta-price-value{
+    font-family:'Fraunces',serif; font-size:1.4rem; font-weight:700;
+    color:var(--ciruela); line-height:1.15;
+  }
+  .pmeta-price-extra{
+    font-size:.64rem; color:var(--gris); letter-spacing:.04em; line-height:1.2;
+  }
+  .variant-row{display:flex; gap:8px}
+  .variant-row .variant-select{flex:1; min-width:0}
+  .variant-select{
+    width:100%; padding:9px; margin-bottom:10px;
+    border:1.5px solid var(--linea); border-radius:8px;
+    font-family:'Inter',sans-serif; font-size:.8rem; background:#fff;
+  }
+  .pactions{display:flex; gap:8px}
+  .qty-stepper{
+    display:flex; align-items:center; flex:1;
+    justify-content:space-between;
+    border:1.5px solid var(--linea); border-radius:8px; overflow:hidden;
+  }
+  .qty-stepper.off{opacity:.4; pointer-events:none}
+  .qty-btn{
+    width:38px; height:42px; border:none; background:#fff;
+    color:var(--tinta); font-size:18px; font-weight:600; line-height:1;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:background .15s, color .15s;
+  }
+  .qty-btn:hover{background:var(--ciruela-suave); color:var(--ciruela)}
+  .qty-btn:active{background:var(--ciruela); color:#fff}
+  .qty-value{
+    width:30px; text-align:center; font-family:'JetBrains Mono',monospace;
+    font-weight:600; font-size:.85rem; user-select:none;
+  }
+
+  .load-more-wrap{text-align:center; padding:20px 16px 40px}
+  .results-info{
+    font-family:'JetBrains Mono',monospace; font-size:.68rem;
+    letter-spacing:.06em; color:var(--gris); margin-bottom:10px;
+    text-transform:uppercase;
+  }
+  .load-more{
+    border:1.5px solid var(--ciruela); color:var(--ciruela); background:var(--papel);
+    padding:11px 28px; border-radius:100px;
+    font-family:'Inter',sans-serif; font-size:.88rem; font-weight:600;
+    cursor:pointer; transition:all .15s;
+  }
+  .load-more:hover{background:var(--ciruela); color:#fff}
+
+  /* ============ VISTA LISTA DE PRECIOS ============ */
+  .marca-group{margin-top:30px}
+  .marca-title{
+    font-family:'Fraunces',serif; font-weight:600; font-size:1.1rem;
+    color:var(--ciruela);
+    display:flex; align-items:baseline; gap:10px;
+    padding-bottom:8px; border-bottom:2px solid var(--tinta);
+    margin-bottom:12px;
+  }
+  .marca-title .n{
+    font-family:'JetBrains Mono',monospace; font-size:.65rem;
+    color:var(--gris); letter-spacing:.05em;
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:8px;
+  }
+  @media(min-width:600px){ .cards{grid-template-columns:repeat(3, 1fr); gap:10px} }
+  .lcard{
+    background:var(--papel);
+    border:1px solid var(--linea);
+    border-radius:var(--radio);
+    padding:10px 12px;
+    display:flex; flex-direction:column; gap:2px;
+  }
+  .lcard .cod{font-family:'JetBrains Mono',monospace; font-weight:600; font-size:.95rem}
+  .lcard .cat{font-size:.66rem; color:var(--gris); text-transform:uppercase; letter-spacing:.06em}
+  .lcard .precio{
+    font-family:'JetBrains Mono',monospace; font-weight:600;
+    font-size:1rem; color:var(--ciruela); margin-top:4px;
+  }
+
+  /* ============ VISTA CATÁLOGOS ============ */
+  .catalogos-grid{display:grid; grid-template-columns:1fr; gap:10px; margin-top:20px}
+  .catalogo-card{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+    background:var(--papel);
+    border:1px solid var(--linea);
+    border-radius:var(--radio);
+    padding:16px 18px;
+    text-decoration:none; color:var(--tinta);
+    transition:border-color .15s, transform .15s;
+  }
+  .catalogo-card:hover, .catalogo-card:active{
+    border-color:var(--ciruela);
+    transform:translateY(-1px);
+  }
+  .catalogo-card .info{display:flex; flex-direction:column; gap:2px; min-width:0}
+  .catalogo-card .nombre{font-family:'Fraunces',serif; font-weight:600; font-size:1rem}
+  .catalogo-card .desc{font-size:.75rem; color:var(--gris)}
+  .catalogo-card .flecha{flex-shrink:0; color:var(--ciruela); display:flex; align-items:center}
+
+  /* ============ ESTADOS ============ */
+  .estado{text-align:center; padding:70px 20px; color:var(--gris)}
+  .estado .big{
+    font-family:'Fraunces',serif; font-size:1.2rem; color:var(--tinta);
+    margin-bottom:8px;
+  }
+  .spinner{
+    width:28px;height:28px;margin:0 auto 16px;
+    border:3px solid var(--linea); border-top-color:var(--ciruela);
+    border-radius:50%; animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.spinner{animation-duration:2s}}
+
+  footer{
+    text-align:center; padding:30px 16px 50px;
+    font-size:.72rem; color:var(--gris);
+    border-top:1px solid var(--linea);
+  }
+  footer .fmono{font-family:'JetBrains Mono',monospace; letter-spacing:.1em; text-transform:uppercase; font-size:.62rem}
+
+  /* ============ CARRITO (drawer) ============ */
+  .overlay{
+    position:fixed; inset:0; background:rgba(36,24,32,.45);
+    opacity:0; pointer-events:none; transition:opacity .2s; z-index:90;
+  }
+  .overlay.open{opacity:1; pointer-events:auto}
+  .drawer{
+    position:fixed; top:0; right:0; height:100vh; height:100dvh; width:min(420px, 100vw);
+    background:var(--papel); z-index:100;
+    transform:translateX(100%); transition:transform .25s ease;
+    display:flex; flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{
+    padding:16px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--linea);
+  }
+  .drawer-head h2{font-family:'Fraunces',serif; font-size:1.15rem}
+  .close-btn{border:none; background:none; font-size:1.5rem; cursor:pointer; color:var(--gris); line-height:1}
+  .drawer-items{flex:1; overflow-y:auto; padding:12px 16px; display:flex; flex-direction:column; gap:12px}
+  .cart-item{display:flex; gap:10px; align-items:center}
+  .cart-item-info{flex:1; min-width:0}
+  .cart-item-name{font-size:.86rem; font-weight:600}
+  .cart-item-variant{font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--gris)}
+  .cart-item-price{font-family:'JetBrains Mono',monospace; font-size:.78rem; color:var(--gris)}
+  .qty{display:flex; align-items:center; gap:8px}
+  .qty button{
+    width:28px; height:28px; border-radius:8px; border:1px solid var(--linea);
+    background:#fff; cursor:pointer; font-size:1rem; line-height:1; color:var(--tinta);
+  }
+  .qty span{min-width:22px; text-align:center; font-family:'JetBrains Mono',monospace; font-weight:600; font-size:.88rem}
+  .cart-empty{text-align:center; color:var(--gris); padding:40px 10px; font-size:.9rem}
+  .drawer-foot{border-top:1px solid var(--linea); padding:16px; display:flex; flex-direction:column; gap:10px}
+  .total-row{display:flex; justify-content:space-between; font-weight:700; font-size:1.05rem}
+  .total-row .monto{font-family:'JetBrains Mono',monospace; color:var(--ciruela)}
+  .minimo-aviso{
+    display:none; align-items:flex-start; gap:9px;
+    background:var(--ciruela-suave); color:var(--tinta);
+    border-left:4px solid var(--ciruela);
+    font-size:.86rem; font-weight:600; line-height:1.4;
+    padding:12px 14px; border-radius:8px;
+  }
+  .minimo-aviso .icon{font-size:1.05rem; line-height:1.3; flex-shrink:0}
+  .minimo-aviso strong{color:var(--ciruela)}
+  .checkout-btn{
+    border:none; cursor:pointer;
+    background:#25D366; color:#fff;
+    padding:14px; border-radius:12px;
+    font-family:'Inter',sans-serif; font-size:.95rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:filter .15s;
+  }
+  .checkout-btn:hover{filter:brightness(.96)}
+  .checkout-btn:disabled{background:#d8ccd1; cursor:not-allowed}
+  .back-link{background:none; border:none; color:var(--gris); font-size:.82rem; cursor:pointer; text-align:center; padding:4px}
+  .form-group{display:flex; flex-direction:column; gap:4px}
+  .form-row{display:flex; gap:10px}
+  .form-row .form-group{flex:1; min-width:0}
+  #envioGroup{display:flex; flex-direction:column; gap:12px}
+  .form-group label{font-size:.78rem; font-weight:600}
+  .form-group input, .form-group select, .form-group textarea{
+    padding:10px; border:1px solid var(--linea); border-radius:8px;
+    font-family:'Inter',sans-serif; font-size:.9rem; background:#fff;
+    outline:none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{border-color:var(--ciruela)}
+  .form-group textarea{resize:vertical; min-height:54px}
+  .whatsapp-icon{width:19px; height:19px; fill:currentColor}
+
+  /* ============ BARRA FLOTANTE DE PEDIDO ============ */
+  .cart-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:80;
+    background:var(--tinta); color:#fff;
+    padding:12px 16px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    box-shadow:0 -4px 20px rgba(36,24,32,.25);
+    transform:translateY(110%); transition:transform .3s ease;
+  }
+  .cart-bar.visible{transform:translateY(0)}
+  .cart-bar-inner{
+    max-width:760px; margin:0 auto; width:100%;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .cart-bar-info{display:flex; align-items:center; gap:9px; min-width:0}
+  .cart-bar-badge{
+    background:var(--ciruela); color:#fff; font-weight:700;
+    font-family:'JetBrains Mono',monospace; font-size:.78rem;
+    min-width:24px; height:24px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0 6px; flex-shrink:0;
+  }
+  .cart-bar-label{font-size:.74rem; color:rgba(255,255,255,.65); white-space:nowrap}
+  .cart-bar-total{
+    font-family:'Fraunces',serif; font-size:1.05rem; font-weight:700; white-space:nowrap;
+  }
+  .cart-bar-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#25D366; color:#fff; border:none; cursor:pointer;
+    padding:11px 18px; border-radius:9px;
+    font-family:'Inter',sans-serif; font-size:.85rem; font-weight:700;
+    white-space:nowrap; transition:filter .2s;
+    box-shadow:0 2px 10px rgba(37,211,102,.35);
+  }
+  .cart-bar-btn:hover{filter:brightness(.95)}
+  .cart-bar-btn svg{width:16px; height:16px; fill:currentColor; flex-shrink:0}
+  body.cart-active footer{padding-bottom:110px}
+  @media(max-width:420px){
+    .cart-bar-label{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Lencería <em>Keren</em></h1>
+    <div class="brand-right">
+      <div class="social">
+        <a class="ig" href="https://instagram.com/lenceriakeren" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+      <button class="cart-btn" id="openCart" aria-label="Abrir pedido">
+        Pedido <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="localinfo">
+    <span class="tag">Venta mayorista</span>
+    <span class="addr">Av. Pueyrredón 115, CABA</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tab-tienda">Tienda</button>
+    <button class="tab" id="tab-lista">Lista de Precios</button>
+    <button class="tab" id="tab-catalogos">Catálogos</button>
+  </div>
+  <div id="controls">
+    <div class="searchwrap">
+      <div class="searchbox">
+        <input type="text" id="q" placeholder="Buscar…" autocomplete="off" inputmode="search">
+      </div>
+    </div>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+
+<div class="meta">
+  <span class="count" id="count"></span>
+</div>
+
+<main id="view-tienda">
+  <div class="estado" id="tienda-loading">
+    <div class="spinner"></div>
+    Cargando tienda…
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+<div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+  <div class="results-info" id="resultsInfo"></div>
+  <button class="load-more" id="loadMore">Ver más productos</button>
+</div>
+
+<main id="view-lista" style="display:none">
+  <div class="estado" id="lista-loading" style="display:none">
+    <div class="spinner"></div>
+    Cargando precios…
+  </div>
+  <div id="lista-content"></div>
+</main>
+
+<main id="view-catalogos" style="display:none">
+  <div class="catalogos-grid" id="catalogos-grid"></div>
+</main>
+
+<footer>
+  <div class="fmono">Lencería Keren · Av. Pueyrredón 115 · CABA</div>
+  <div style="margin-top:6px">Venta mayorista · Precios sujetos a modificación sin previo aviso.</div>
+</footer>
+
+<!-- Barra flotante de pedido -->
+<div class="cart-bar" id="cartBar">
+  <div class="cart-bar-inner">
+    <div class="cart-bar-info" id="cartBarInfo">
+      <span class="cart-bar-badge" id="cartBarCount">0</span>
+      <span class="cart-bar-label">en tu pedido</span>
+      <span class="cart-bar-total" id="cartBarTotal">$0</span>
+    </div>
+    <button class="cart-bar-btn" id="cartBarBtn">
+      Finalizar pedido
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Carrito -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Tu pedido">
+  <div class="drawer-head">
+    <h2 id="drawerTitle">Tu pedido</h2>
+    <button class="close-btn" id="closeCart" aria-label="Cerrar">×</button>
+  </div>
+
+  <div class="drawer-items" id="cartItems"></div>
+
+  <div class="drawer-items" id="checkoutForm" style="display:none">
+    <div class="form-group">
+      <label for="fName">Nombre completo *</label>
+      <input id="fName" type="text" autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label for="fDelivery">Entrega *</label>
+      <select id="fDelivery">
+        <option>Envío</option>
+        <option>Retiro por el local (Av. Pueyrredón 115, CABA)</option>
+      </select>
+    </div>
+    <div id="envioGroup">
+      <div class="form-group">
+        <label for="fAddress">Dirección *</label>
+        <input id="fAddress" type="text" autocomplete="street-address" placeholder="Calle y número">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fCP">Código postal *</label>
+          <input id="fCP" type="text" inputmode="numeric" autocomplete="postal-code">
+        </div>
+        <div class="form-group">
+          <label for="fCiudad">Ciudad *</label>
+          <input id="fCiudad" type="text" autocomplete="address-level2">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fProvincia">Provincia *</label>
+        <input id="fProvincia" type="text" autocomplete="address-level1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fNotes">Notas (opcional)</label>
+      <textarea id="fNotes" placeholder="Aclaraciones sobre tu pedido…"></textarea>
+    </div>
+  </div>
+
+  <div class="drawer-foot">
+    <div class="minimo-aviso" id="minimoAviso"><span class="icon">⚠️</span><span id="minimoAvisoTexto"></span></div>
+    <div class="total-row"><span>Total</span><span class="monto" id="cartTotal"></span></div>
+    <button class="checkout-btn" id="checkoutBtn">
+      <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span id="checkoutBtnText">Continuar</span>
+    </button>
+    <button class="back-link" id="backBtn" style="display:none">← Volver al pedido</button>
+  </div>
+</aside>
+
+<script>
+/* ==================================================================
+   CONFIGURACIÓN TIENDA
+   ================================================================== */
+// URL de la hoja "TIENDA" publicada como CSV
+// (Archivo → Compartir → Publicar en la web → hoja TIENDA → formato CSV)
+const TIENDA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-rgUX_I6n7ISH_ZFO7Tk_F3g5Ca-glfXE59KKbMxdYKypomsrjoEK0m8VmFm9aXBqC2Rf29migHx_/pub?gid=994842918&single=true&output=csv";
+
+const WHATSAPP = "5491140451252";
+const PEDIDO_MINIMO = 60000;   // monto mínimo mayorista en $. 0 = sin mínimo.
+
+/* Snapshot de respaldo de la tienda (si no se puede leer el Sheet).
+   Copia de la hoja TIENDA — conviene actualizarlo cuando cambien
+   los combos o los precios. */
+const TIENDA_SNAPSHOT = [
+  { id:"C001", badge:"Más Vendido", name:"Combo Emprendedor", price:100000, category:"COMBOS",
+    description:"El combo ideal para empezar a vender lencería con variedad, calidad y excelente salida.",
+    details:["12 conjuntos","8 packs de bombachas","Marcas Natubel, Tiento, Maia, Aiam y multimarca","Talles surtidos del 85 al 100 según disponibilidad","20 prendas · Precio + envío"],
+    image:null, available:true },
+  { id:"C002", badge:"Premium", name:"Combo Deluxe", price:100000, category:"COMBOS",
+    description:"Tu oportunidad para emprender con una selección premium de lencería pensada para revendedoras.",
+    details:["14 conjuntos surtidos","Marcas Tiento, Natubel, Maia, Frashe y Kaury","Talles surtidos del 85 al 100 según disponibilidad","14 prendas · Precio + envío"],
+    image:null, available:true },
+  { id:"C003", badge:"Oferta Especial", name:"Combo Aguinaldo", price:120000, category:"COMBOS",
+    description:"Aprovechá este combo pensado para vender más y renovar tu stock con la mejor relación precio-calidad.",
+    details:["12 conjuntos","Marcas Marcela Koury, Tiento, Kaury, Maia, Natubel y Frashe","Talles surtidos del 85 al 100 según disponibilidad","12 prendas · Precio + envío"],
+    image:null, available:true },
+  { id:"C004", badge:"Talles Especiales", name:"Combo Talles Especiales", price:120000, category:"COMBOS",
+    description:"Una selección pensada para ofrecer más variedad y llegar a todas tus clientas.",
+    details:["8 conjuntos Natubel","4 conjuntos Frashe","Talles surtidos del 105 al 120 según disponibilidad","12 prendas · Precio + envío"],
+    image:null, available:true },
+  { id:"C005", badge:"Recomendado", name:"Combo Impulso", price:120000, category:"COMBOS",
+    description:"Pensado para revendedoras que quieren impulsar sus ventas con una selección de alta rotación.",
+    details:["8 conjuntos","7 bralette","8 packs less/vedetina","Talles surtidos del 85 al 100 según disponibilidad","23 prendas · Precio + envío"],
+    image:null, available:true },
+  { id:"C006", badge:"Alta Rotación", name:"Combo Bombachas", price:100000, category:"COMBOS",
+    description:"Combo exclusivo de bombachas surtidas, ideal para revender con alta rotación y gran rentabilidad.",
+    details:["16 packs de bombachas","Marcas Kaury, Marcela Koury, Frashe, Fairuz, Natubel y Avril Kaury","Modelos colaless, regulables, culotte less y vedetinas","16 packs · Precio + envío"],
+    image:null, available:true },
+  { id:"C007", badge:"Más Variedad", name:"Combo Mix", price:120000, category:"COMBOS",
+    description:"La combinación perfecta para ofrecer variedad y aumentar tus ventas.",
+    details:["3 conjuntos Frashe talle 105 al 120","3 conjuntos Natubel talle 105 al 120","2 bralette","4 conjuntos surtidos Brigitte, Tiento, Kaury o Natubel del 85 al 100","12 prendas · Precio + envío"],
+    image:null, available:true },
+  { id:"C008", badge:"Hombre", name:"Combo Hombre", price:140000, category:"COMBOS",
+    description:"Selección de boxers y medias con excelente salida, ideal para ampliar tu catálogo.",
+    details:["20 boxers","24 pares de medias","Talles surtidos según disponibilidad","44 prendas · Precio + envío"],
+    image:null, available:true },
+];
+
+/* ==================================================================
+   CONFIGURACIÓN LISTA DE PRECIOS Y CATÁLOGOS
+   (datos portados de la web original)
+   ================================================================== */
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-rgUX_I6n7ISH_ZFO7Tk_F3g5Ca-glfXE59KKbMxdYKypomsrjoEK0m8VmFm9aXBqC2Rf29migHx_/pub?gid=1636446562&single=true&output=tsv";
+const FILAS_ENCABEZADO = 2;
+const COL = { marca:5, articulo:6, categoria:7, precio:8 };
+const CATALOGOS = [
+  { nombre: "KAURY", desc: "Intimate", url: "https://drive.google.com/file/d/1dMM03Mylwbusooq9x6eet5jctL3C3Wpb/view" },
+  { nombre: "KAURY", desc: "Underwear", url: "https://drive.google.com/file/d/1Gvz195vTsGnaJmmPX0m_j_kOkg7JoadZ/view" },
+  { nombre: "SIGRY", desc: "Catálogo", url: "https://drive.google.com/file/d/1d2vEQsFJgzqEwHn1yAqg4VwK5fvFa1jk/view" },
+  { nombre: "LARA", desc: "Catálogo", url: "https://drive.google.com/file/d/1gpRBew3-dUJxeaDmshVYabz2ZRt3AxYH/view" },
+  { nombre: "MARCELA KOURY", desc: "Catálogo", url: "https://drive.google.com/file/d/1gvgNESUypANz_CwjKnR7gbm4ySn37raI/view" },
+  { nombre: "FAIRUZ", desc: "Catálogo", url: "https://drive.google.com/file/d/1snrYE2s7EJMQJ8Pk144p35lL17AG68Xx/view" },
+  { nombre: "TIENTO", desc: "Catálogo", url: "https://drive.google.com/file/d/1UapDiwkqDTVW0zsyuJLC87xNJ9gCqbYf/view" },
+  { nombre: "BRIGITTE", desc: "Catálogo", url: "https://drive.google.com/file/d/1VFKQPuWqBqmMNrwG-GERgcC7eWojFL9P/view" },
+  { nombre: "NATUBEL", desc: "Catálogo", url: "https://drive.google.com/file/d/1pkzWmNdXebkppq6k6PKXmBs85OFCvxD_/view" },
+  { nombre: "LODY", desc: "Catálogo", url: "https://drive.google.com/file/d/1Jg193q5q3KkGS8hG_zk-2FspEFOlDM6q/view" },
+  { nombre: "LODYMEN", desc: "Catálogo", url: "https://drive.google.com/file/d/1ME4fZEgENRm8OeBwsr2RwV6KEX6lIKnb/view" },
+  { nombre: "ANDRESSA", desc: "Catálogo", url: "https://drive.google.com/file/d/1nJqLj383eAPZnYgtI0KXLGzYFwR6vNNo/view" },
+  { nombre: "MELIFERA", desc: "Catálogo", url: "https://drive.google.com/file/d/1YN41GI6tiNNDcZAsbMb_gcuCuBAbd324/view" },
+  { nombre: "TAKKI", desc: "Catálogo", url: "https://drive.google.com/file/d/1H6DCTLYtWvMu-iic--GdE1P_djAX9DCD/view" },
+];
+const DATA_SNAPSHOT = [{"marca": "KAURY", "articulo": "4000", "categoria": "Conjuntos", "precio": 15500.0}, {"marca": "KAURY", "articulo": "4030", "categoria": "Conjuntos", "precio": 15600.0}, {"marca": "KAURY", "articulo": "4710", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "KAURY", "articulo": "4790", "categoria": "Conjuntos", "precio": 16100.0}, {"marca": "KAURY", "articulo": "4950", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "KAURY", "articulo": "7020", "categoria": "Conjuntos", "precio": 12300.0}, {"marca": "KAURY", "articulo": "8060", "categoria": "Conjuntos", "precio": 16800.0}, {"marca": "KAURY", "articulo": "8100", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "KAURY", "articulo": "8102", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "KAURY", "articulo": "8130", "categoria": "Conjuntos", "precio": 12900.0}, {"marca": "KAURY", "articulo": "8165", "categoria": "Conjuntos", "precio": 14400.0}, {"marca": "KAURY", "articulo": "8175", "categoria": "Conjuntos", "precio": 18400.0}, {"marca": "KAURY", "articulo": "8185", "categoria": "Conjuntos", "precio": 11500.0}, {"marca": "KAURY", "articulo": "8186", "categoria": "Conjuntos", "precio": 15000.0}, {"marca": "KAURY", "articulo": "8189", "categoria": "Conjuntos", "precio": 13600.0}, {"marca": "KAURY", "articulo": "8190", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "KAURY", "articulo": "8191", "categoria": "Conjuntos", "precio": 13600.0}, {"marca": "KAURY", "articulo": "8192", "categoria": "Conjuntos", "precio": 11900.0}, {"marca": "KAURY", "articulo": "8193", "categoria": "Conjuntos", "precio": 14400.0}, {"marca": "KAURY", "articulo": "8194", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "KAURY", "articulo": "8195", "categoria": "Conjuntos", "precio": 17400.0}, {"marca": "KAURY", "articulo": "8199", "categoria": "Conjuntos", "precio": 17800.0}, {"marca": "KAURY", "articulo": "8200", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "KAURY", "articulo": "8202", "categoria": "Conjuntos", "precio": 9900.0}, {"marca": "KAURY", "articulo": "8204", "categoria": "Conjuntos", "precio": 17900.0}, {"marca": "KAURY", "articulo": "8208", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "KAURY", "articulo": "8209", "categoria": "Conjuntos", "precio": 14600.0}, {"marca": "KAURY", "articulo": "8213", "categoria": "Conjuntos", "precio": 8900.0}, {"marca": "KAURY", "articulo": "8214", "categoria": "Conjuntos", "precio": 17800.0}, {"marca": "KAURY", "articulo": "8215", "categoria": "Conjuntos", "precio": 11700.0}, {"marca": "KAURY", "articulo": "8216", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "KAURY", "articulo": "8218", "categoria": "Conjuntos", "precio": 10300.0}, {"marca": "KAURY", "articulo": "8219", "categoria": "Conjuntos", "precio": 17800.0}, {"marca": "KAURY", "articulo": "8220", "categoria": "Conjuntos", "precio": 15800.0}, {"marca": "KAURY", "articulo": "8221", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "KAURY", "articulo": "8223", "categoria": "Conjuntos", "precio": 11900.0}, {"marca": "KAURY", "articulo": "8224", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "KAURY", "articulo": "8225", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "KAURY", "articulo": "8226", "categoria": "Conjuntos", "precio": 12900.0}, {"marca": "KAURY", "articulo": "8227", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "KAURY", "articulo": "8228", "categoria": "Conjuntos", "precio": 14900.0}, {"marca": "KAURY", "articulo": "8229", "categoria": "Conjuntos", "precio": 18700.0}, {"marca": "KAURY", "articulo": "8230", "categoria": "Conjuntos", "precio": 19300.0}, {"marca": "KAURY", "articulo": "8231", "categoria": "Conjuntos", "precio": 16800.0}, {"marca": "KAURY", "articulo": "8233", "categoria": "Conjuntos", "precio": 18200.0}, {"marca": "KAURY", "articulo": "8234", "categoria": "Conjuntos", "precio": 19600.0}, {"marca": "KAURY", "articulo": "8235", "categoria": "Conjuntos", "precio": 13300.0}, {"marca": "KAURY", "articulo": "8240", "categoria": "Conjuntos", "precio": 19600.0}, {"marca": "KAURY", "articulo": "8244", "categoria": "Conjuntos", "precio": 14100.0}, {"marca": "KAURY", "articulo": "8245", "categoria": "Conjuntos", "precio": 21500.0}, {"marca": "KAURY", "articulo": "8246", "categoria": "Conjuntos", "precio": 16500.0}, {"marca": "KAURY", "articulo": "8248", "categoria": "Conjuntos", "precio": 18600.0}, {"marca": "KAURY", "articulo": "8249", "categoria": "Conjuntos", "precio": 13100.0}, {"marca": "KAURY", "articulo": "8143", "categoria": "Faja", "precio": 11500.0}, {"marca": "KAURY", "articulo": "8211", "categoria": "Musculosa", "precio": 14800.0}, {"marca": "KAURY", "articulo": "8213", "categoria": "Musculosa", "precio": 8900.0}, {"marca": "KAURY", "articulo": "8230", "categoria": "Camisolin", "precio": 19300.0}, {"marca": "KAURY", "articulo": "8212", "categoria": "Remera", "precio": 15500.0}, {"marca": "KAURY", "articulo": "8183", "categoria": "Top", "precio": 19800.0}, {"marca": "KAURY", "articulo": "8184", "categoria": "Top", "precio": 14600.0}, {"marca": "KAURY", "articulo": "8187", "categoria": "Body", "precio": 8500.0}, {"marca": "KAURY", "articulo": "8188", "categoria": "Body", "precio": 10900.0}, {"marca": "KAURY", "articulo": "8217", "categoria": "Body", "precio": 11000.0}, {"marca": "KAURY", "articulo": "8222", "categoria": "Body", "precio": 16500.0}, {"marca": "KAURY", "articulo": "8232", "categoria": "Body", "precio": 18000.0}, {"marca": "KAURY", "articulo": "8243", "categoria": "Body", "precio": 15900.0}, {"marca": "KAURY", "articulo": "18", "categoria": "Intimates", "precio": 9600.0}, {"marca": "KAURY", "articulo": "31", "categoria": "Intimates", "precio": 8600.0}, {"marca": "KAURY", "articulo": "34", "categoria": "Intimates", "precio": 7900.0}, {"marca": "KAURY", "articulo": "35", "categoria": "Intimates", "precio": 9100.0}, {"marca": "KAURY", "articulo": "74", "categoria": "Intimates", "precio": 10000.0}, {"marca": "KAURY", "articulo": "83", "categoria": "Intimates", "precio": 7800.0}, {"marca": "KAURY", "articulo": "97", "categoria": "Intimates", "precio": 19800.0}, {"marca": "KAURY", "articulo": "98", "categoria": "Intimates", "precio": 19800.0}, {"marca": "KAURY", "articulo": "99", "categoria": "Intimates", "precio": 20000.0}, {"marca": "KAURY", "articulo": "100", "categoria": "Intimates", "precio": 37800.0}, {"marca": "KAURY", "articulo": "101", "categoria": "Intimates", "precio": 8500.0}, {"marca": "KAURY", "articulo": "102", "categoria": "Intimates", "precio": 9400.0}, {"marca": "KAURY", "articulo": "103", "categoria": "Intimates", "precio": 10500.0}, {"marca": "KAURY", "articulo": "108", "categoria": "Intimates", "precio": 7700.0}, {"marca": "KAURY", "articulo": "109", "categoria": "Intimates", "precio": 8200.0}, {"marca": "KAURY", "articulo": "110", "categoria": "Intimates", "precio": 8000.0}, {"marca": "KAURY", "articulo": "111", "categoria": "Intimates", "precio": 9300.0}, {"marca": "KAURY", "articulo": "114", "categoria": "Intimates", "precio": 8300.0}, {"marca": "KAURY", "articulo": "115", "categoria": "Intimates", "precio": 8100.0}, {"marca": "KAURY", "articulo": "116", "categoria": "Intimates", "precio": 9600.0}, {"marca": "KAURY", "articulo": "117", "categoria": "Intimates", "precio": 10100.0}, {"marca": "KAURY", "articulo": "120", "categoria": "Intimates", "precio": 9300.0}, {"marca": "KAURY", "articulo": "121", "categoria": "Intimates", "precio": 11100.0}, {"marca": "KAURY", "articulo": "127", "categoria": "Intimates", "precio": 8300.0}, {"marca": "KAURY", "articulo": "131", "categoria": "Intimates", "precio": 11300.0}, {"marca": "KAURY", "articulo": "132", "categoria": "Intimates", "precio": 7900.0}, {"marca": "KAURY", "articulo": "133", "categoria": "Intimates", "precio": 6800.0}, {"marca": "KAURY", "articulo": "134", "categoria": "Intimates", "precio": 9400.0}, {"marca": "KAURY", "articulo": "135", "categoria": "Intimates", "precio": 9400.0}, {"marca": "KAURY", "articulo": "136", "categoria": "Intimates", "precio": 8800.0}, {"marca": "KAURY", "articulo": "137", "categoria": "Intimates", "precio": 9500.0}, {"marca": "KAURY", "articulo": "138", "categoria": "Intimates", "precio": 6300.0}, {"marca": "KAURY", "articulo": "140", "categoria": "Intimates", "precio": 10800.0}, {"marca": "KAURY", "articulo": "142", "categoria": "Intimates", "precio": 7900.0}, {"marca": "KAURY", "articulo": "143", "categoria": "Intimates", "precio": 10900.0}, {"marca": "KAURY", "articulo": "144", "categoria": "Intimates", "precio": 7400.0}, {"marca": "KAURY", "articulo": "146", "categoria": "Intimates", "precio": 9900.0}, {"marca": "KAURY", "articulo": "147", "categoria": "Intimates", "precio": 9500.0}, {"marca": "KAURY", "articulo": "148", "categoria": "Intimates", "precio": 9300.0}, {"marca": "KAURY", "articulo": "149", "categoria": "Intimates", "precio": 9400.0}, {"marca": "KAURY", "articulo": "151", "categoria": "Intimates", "precio": 9100.0}, {"marca": "KAURY", "articulo": "152", "categoria": "Intimates", "precio": 8500.0}, {"marca": "KAURY", "articulo": "153", "categoria": "Intimates", "precio": 8900.0}, {"marca": "KAURY", "articulo": "155", "categoria": "Intimates", "precio": 9000.0}, {"marca": "KAURY", "articulo": "156", "categoria": "Intimates", "precio": 9800.0}, {"marca": "KAURY", "articulo": "158", "categoria": "Intimates", "precio": 8600.0}, {"marca": "KAURY", "articulo": "159", "categoria": "Intimates", "precio": 8500.0}, {"marca": "KAURY", "articulo": "162", "categoria": "Intimates", "precio": 7700.0}, {"marca": "KAURY", "articulo": "163", "categoria": "Intimates", "precio": 10700.0}, {"marca": "SIGRY", "articulo": "1287", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "SIGRY", "articulo": "1295", "categoria": "Conjuntos", "precio": 20200.0}, {"marca": "SIGRY", "articulo": "1305", "categoria": "Conjuntos", "precio": 18500.0}, {"marca": "SIGRY", "articulo": "1341", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "SIGRY", "articulo": "1343", "categoria": "Conjuntos", "precio": 16900.0}, {"marca": "SIGRY", "articulo": "1395", "categoria": "Conjuntos", "precio": 19400.0}, {"marca": "SIGRY", "articulo": "1420", "categoria": "Conjuntos", "precio": 15900.0}, {"marca": "SIGRY", "articulo": "1428", "categoria": "Conjuntos", "precio": 12400.0}, {"marca": "SIGRY", "articulo": "1429", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "SIGRY", "articulo": "1565", "categoria": "Conjuntos", "precio": 13700.0}, {"marca": "SIGRY", "articulo": "1730", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "SIGRY", "articulo": "1738", "categoria": "Conjuntos", "precio": 12300.0}, {"marca": "SIGRY", "articulo": "1833", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "SIGRY", "articulo": "1841", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "SIGRY", "articulo": "1843", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "SIGRY", "articulo": "1845", "categoria": "Conjuntos", "precio": 14500.0}, {"marca": "SIGRY", "articulo": "1850", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "SIGRY", "articulo": "1905", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "SIGRY", "articulo": "1906", "categoria": "Conjuntos", "precio": 17900.0}, {"marca": "SIGRY", "articulo": "1914", "categoria": "Conjuntos", "precio": 14500.0}, {"marca": "SIGRY", "articulo": "1921", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "SIGRY", "articulo": "1924", "categoria": "Conjuntos", "precio": 16500.0}, {"marca": "SIGRY", "articulo": "1925", "categoria": "Conjuntos", "precio": 17400.0}, {"marca": "SIGRY", "articulo": "1981", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "SIGRY", "articulo": "1992", "categoria": "Conjuntos", "precio": 12900.0}, {"marca": "SIGRY", "articulo": "5820", "categoria": "Conjuntos", "precio": 13400.0}, {"marca": "SIGRY", "articulo": "5836", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "SIGRY", "articulo": "5950", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "SIGRY", "articulo": "5955", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "SIGRY", "articulo": "7506", "categoria": "Body", "precio": 17500.0}, {"marca": "SIGRY", "articulo": "7901", "categoria": "Bombachas", "precio": 12400.0}, {"marca": "SIGRY", "articulo": "7905", "categoria": "Bombachas", "precio": 9300.0}, {"marca": "LARA", "articulo": "4115", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "LARA", "articulo": "4120", "categoria": "Conjuntos", "precio": 10700.0}, {"marca": "LARA", "articulo": "4163", "categoria": "Conjuntos", "precio": 9300.0}, {"marca": "LARA", "articulo": "4175", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "LARA", "articulo": "4178", "categoria": "Conjuntos", "precio": 9500.0}, {"marca": "LARA", "articulo": "4182", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "LARA", "articulo": "4188", "categoria": "Conjuntos", "precio": 12300.0}, {"marca": "LARA", "articulo": "4193", "categoria": "Conjuntos", "precio": 10300.0}, {"marca": "LARA", "articulo": "4280", "categoria": "Conjuntos", "precio": 8700.0}, {"marca": "LARA", "articulo": "4285", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "LARA", "articulo": "4356", "categoria": "Conjuntos", "precio": 11500.0}, {"marca": "LARA", "articulo": "4385", "categoria": "Conjuntos", "precio": 12400.0}, {"marca": "LARA", "articulo": "4435", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "LARA", "articulo": "4550", "categoria": "Conjuntos", "precio": 8000.0}, {"marca": "LARA", "articulo": "4650", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LARA", "articulo": "4680", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "LARA", "articulo": "4720", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "LARA", "articulo": "4725", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "LARA", "articulo": "5150", "categoria": "Conjuntos", "precio": 11500.0}, {"marca": "LARA", "articulo": "5160", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "LARA", "articulo": "5650", "categoria": "Conjuntos", "precio": 7000.0}, {"marca": "LARA", "articulo": "5700", "categoria": "Conjuntos", "precio": 8700.0}, {"marca": "LARA", "articulo": "5750", "categoria": "Conjuntos", "precio": 10700.0}, {"marca": "LARA", "articulo": "5825", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "LARA", "articulo": "8150", "categoria": "Conjuntos", "precio": 8700.0}, {"marca": "LARA", "articulo": "7000", "categoria": "Body", "precio": 12900.0}, {"marca": "LARA", "articulo": "7450", "categoria": "Body", "precio": 10600.0}, {"marca": "LARA", "articulo": "5450", "categoria": "Bombachas", "precio": 5500.0}, {"marca": "LARA", "articulo": "5510", "categoria": "Bombachas", "precio": 6100.0}, {"marca": "LARA", "articulo": "6250", "categoria": "Bombachas", "precio": 8100.0}, {"marca": "LARA", "articulo": "6785", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "LARA", "articulo": "6150", "categoria": "Boxer", "precio": 4500.0}, {"marca": "MARCELA KOURY", "articulo": "5084", "categoria": "Conjuntos", "precio": 12500.0}, {"marca": "MARCELA KOURY", "articulo": "5116", "categoria": "Conjuntos", "precio": 14700.0}, {"marca": "MARCELA KOURY", "articulo": "5160", "categoria": "Conjuntos", "precio": 12400.0}, {"marca": "MARCELA KOURY", "articulo": "5223", "categoria": "Conjuntos", "precio": 11500.0}, {"marca": "MARCELA KOURY", "articulo": "5275", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "MARCELA KOURY", "articulo": "5294", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "MARCELA KOURY", "articulo": "5295", "categoria": "Conjuntos", "precio": 14700.0}, {"marca": "MARCELA KOURY", "articulo": "5322", "categoria": "Conjuntos", "precio": 13700.0}, {"marca": "MARCELA KOURY", "articulo": "5323", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "MARCELA KOURY", "articulo": "5324", "categoria": "Conjuntos", "precio": 14600.0}, {"marca": "MARCELA KOURY", "articulo": "5328", "categoria": "Conjuntos", "precio": 11100.0}, {"marca": "MARCELA KOURY", "articulo": "5484", "categoria": "Conjuntos", "precio": 10600.0}, {"marca": "MARCELA KOURY", "articulo": "5556", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "MARCELA KOURY", "articulo": "5595", "categoria": "Conjuntos", "precio": 16100.0}, {"marca": "MARCELA KOURY", "articulo": "5596", "categoria": "Conjuntos", "precio": 15800.0}, {"marca": "MARCELA KOURY", "articulo": "5598", "categoria": "Conjuntos", "precio": 20000.0}, {"marca": "MARCELA KOURY", "articulo": "5599", "categoria": "Conjuntos", "precio": 18900.0}, {"marca": "MARCELA KOURY", "articulo": "5608", "categoria": "Conjuntos", "precio": 10100.0}, {"marca": "MARCELA KOURY", "articulo": "5610", "categoria": "Conjuntos", "precio": 12800.0}, {"marca": "MARCELA KOURY", "articulo": "5644", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "MARCELA KOURY", "articulo": "5647", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "MARCELA KOURY", "articulo": "5664", "categoria": "Conjuntos", "precio": 11000.0}, {"marca": "MARCELA KOURY", "articulo": "5673", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "MARCELA KOURY", "articulo": "5674", "categoria": "Conjuntos", "precio": 10500.0}, {"marca": "MARCELA KOURY", "articulo": "5678", "categoria": "Conjuntos", "precio": 10200.0}, {"marca": "MARCELA KOURY", "articulo": "5682", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "MARCELA KOURY", "articulo": "5690", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "MARCELA KOURY", "articulo": "5721", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "MARCELA KOURY", "articulo": "5727", "categoria": "Conjuntos", "precio": 13800.0}, {"marca": "MARCELA KOURY", "articulo": "5733", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "MARCELA KOURY", "articulo": "5734", "categoria": "Conjuntos", "precio": 14100.0}, {"marca": "MARCELA KOURY", "articulo": "5735", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "MARCELA KOURY", "articulo": "5736", "categoria": "Conjuntos", "precio": 15800.0}, {"marca": "MARCELA KOURY", "articulo": "5737", "categoria": "Conjuntos", "precio": 14400.0}, {"marca": "MARCELA KOURY", "articulo": "5739", "categoria": "Conjuntos", "precio": 15900.0}, {"marca": "MARCELA KOURY", "articulo": "5740", "categoria": "Conjuntos", "precio": 14600.0}, {"marca": "MARCELA KOURY", "articulo": "5741", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "MARCELA KOURY", "articulo": "5742", "categoria": "Conjuntos", "precio": 13700.0}, {"marca": "MARCELA KOURY", "articulo": "5743", "categoria": "Conjuntos", "precio": 17800.0}, {"marca": "MARCELA KOURY", "articulo": "5744", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "MARCELA KOURY", "articulo": "5745", "categoria": "Conjuntos", "precio": 13400.0}, {"marca": "MARCELA KOURY", "articulo": "5746", "categoria": "Conjuntos", "precio": 15600.0}, {"marca": "MARCELA KOURY", "articulo": "5747", "categoria": "Conjuntos", "precio": 14600.0}, {"marca": "MARCELA KOURY", "articulo": "5749", "categoria": "Conjuntos", "precio": 16900.0}, {"marca": "MARCELA KOURY", "articulo": "5750", "categoria": "Conjuntos", "precio": 15500.0}, {"marca": "MARCELA KOURY", "articulo": "5751", "categoria": "Conjuntos", "precio": 17700.0}, {"marca": "MARCELA KOURY", "articulo": "5753", "categoria": "Conjuntos", "precio": 15600.0}, {"marca": "MARCELA KOURY", "articulo": "5755", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "MARCELA KOURY", "articulo": "5756", "categoria": "Conjuntos", "precio": 16900.0}, {"marca": "MARCELA KOURY", "articulo": "5757", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "MARCELA KOURY", "articulo": "5759", "categoria": "Conjuntos", "precio": 14100.0}, {"marca": "MARCELA KOURY", "articulo": "5760", "categoria": "Conjuntos", "precio": 27700.0}, {"marca": "MARCELA KOURY", "articulo": "5761", "categoria": "Conjuntos", "precio": 18000.0}, {"marca": "MARCELA KOURY", "articulo": "5762", "categoria": "Conjuntos", "precio": 16300.0}, {"marca": "MARCELA KOURY", "articulo": "5784", "categoria": "Conjuntos", "precio": 21000.0}, {"marca": "MARCELA KOURY", "articulo": "1042", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "MARCELA KOURY", "articulo": "1053", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "MARCELA KOURY", "articulo": "1142", "categoria": "Bombachas", "precio": 7700.0}, {"marca": "MARCELA KOURY", "articulo": "1153", "categoria": "Bombachas", "precio": 7700.0}, {"marca": "MARCELA KOURY", "articulo": "1242", "categoria": "Bombachas", "precio": 7500.0}, {"marca": "MARCELA KOURY", "articulo": "1253", "categoria": "Bombachas", "precio": 7500.0}, {"marca": "MARCELA KOURY", "articulo": "1453", "categoria": "Bombachas", "precio": 7800.0}, {"marca": "MARCELA KOURY", "articulo": "10137", "categoria": "Bombachas", "precio": 8400.0}, {"marca": "MARCELA KOURY", "articulo": "10138", "categoria": "Bombachas", "precio": 7800.0}, {"marca": "MARCELA KOURY", "articulo": "10245", "categoria": "Bombachas", "precio": 6200.0}, {"marca": "MARCELA KOURY", "articulo": "10246", "categoria": "Bombachas", "precio": 10300.0}, {"marca": "MARCELA KOURY", "articulo": "10247", "categoria": "Bombachas", "precio": 5700.0}, {"marca": "MARCELA KOURY", "articulo": "10248", "categoria": "Bombachas", "precio": 8900.0}, {"marca": "MARCELA KOURY", "articulo": "11137", "categoria": "Bombachas", "precio": 9000.0}, {"marca": "MARCELA KOURY", "articulo": "11138", "categoria": "Bombachas", "precio": 8400.0}, {"marca": "MARCELA KOURY", "articulo": "11245", "categoria": "Bombachas", "precio": 7000.0}, {"marca": "MARCELA KOURY", "articulo": "11246", "categoria": "Bombachas", "precio": 12200.0}, {"marca": "MARCELA KOURY", "articulo": "11247", "categoria": "Bombachas", "precio": 6500.0}, {"marca": "MARCELA KOURY", "articulo": "12137", "categoria": "Bombachas", "precio": 8600.0}, {"marca": "MARCELA KOURY", "articulo": "12138", "categoria": "Bombachas", "precio": 8200.0}, {"marca": "MARCELA KOURY", "articulo": "12245", "categoria": "Bombachas", "precio": 6800.0}, {"marca": "MARCELA KOURY", "articulo": "12246", "categoria": "Bombachas", "precio": 11400.0}, {"marca": "MARCELA KOURY", "articulo": "12247", "categoria": "Bombachas", "precio": 6300.0}, {"marca": "MARCELA KOURY", "articulo": "10250", "categoria": "Bombachas", "precio": 7900.0}, {"marca": "MARCELA KOURY", "articulo": "10252", "categoria": "Bombachas", "precio": 5900.0}, {"marca": "MARCELA KOURY", "articulo": "11252", "categoria": "Bombachas", "precio": 6800.0}, {"marca": "MARCELA KOURY", "articulo": "12252", "categoria": "Bombachas", "precio": 6600.0}, {"marca": "FAIRUZ", "articulo": "233", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "FAIRUZ", "articulo": "235", "categoria": "Conjuntos", "precio": 10100.0}, {"marca": "FAIRUZ", "articulo": "235/E", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "FAIRUZ", "articulo": "238", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "FAIRUZ", "articulo": "239", "categoria": "Conjuntos", "precio": 12200.0}, {"marca": "FAIRUZ", "articulo": "253", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "FAIRUZ", "articulo": "260", "categoria": "Conjuntos", "precio": 11100.0}, {"marca": "FAIRUZ", "articulo": "301", "categoria": "Conjuntos", "precio": 8400.0}, {"marca": "FAIRUZ", "articulo": "305", "categoria": "Conjuntos", "precio": 8400.0}, {"marca": "FAIRUZ", "articulo": "2020", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "FAIRUZ", "articulo": "2020/E", "categoria": "Conjuntos", "precio": 11900.0}, {"marca": "FAIRUZ", "articulo": "2030", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "FAIRUZ", "articulo": "2036", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "FAIRUZ", "articulo": "2043", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "FAIRUZ", "articulo": "2044", "categoria": "Conjuntos", "precio": 12900.0}, {"marca": "FAIRUZ", "articulo": "2051", "categoria": "Conjuntos", "precio": 12900.0}, {"marca": "FAIRUZ", "articulo": "2052", "categoria": "Conjuntos", "precio": 13800.0}, {"marca": "FAIRUZ", "articulo": "2052/E", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "FAIRUZ", "articulo": "2062", "categoria": "Conjuntos", "precio": 11300.0}, {"marca": "FAIRUZ", "articulo": "2233", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "FAIRUZ", "articulo": "3055", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "FAIRUZ", "articulo": "3057", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "FAIRUZ", "articulo": "3131", "categoria": "Conjuntos", "precio": 13800.0}, {"marca": "FAIRUZ", "articulo": "3135", "categoria": "Conjuntos", "precio": 9200.0}, {"marca": "FAIRUZ", "articulo": "3140", "categoria": "Conjuntos", "precio": 13800.0}, {"marca": "FAIRUZ", "articulo": "3151", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "FAIRUZ", "articulo": "500", "categoria": "Bombachas", "precio": 6900.0}, {"marca": "FAIRUZ", "articulo": "515", "categoria": "Bombachas", "precio": 5800.0}, {"marca": "FAIRUZ", "articulo": "526", "categoria": "Bombachas", "precio": 8000.0}, {"marca": "FAIRUZ", "articulo": "531", "categoria": "Bombachas", "precio": 7300.0}, {"marca": "FAIRUZ", "articulo": "532", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "FAIRUZ", "articulo": "550", "categoria": "Bombachas", "precio": 6100.0}, {"marca": "FAIRUZ", "articulo": "556", "categoria": "Bombachas", "precio": 6900.0}, {"marca": "FAIRUZ", "articulo": "600", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "FAIRUZ", "articulo": "628", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "FAIRUZ", "articulo": "630", "categoria": "Bombachas", "precio": 6900.0}, {"marca": "FAIRUZ", "articulo": "632", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "FAIRUZ", "articulo": "700", "categoria": "Bombachas", "precio": 9500.0}, {"marca": "FAIRUZ", "articulo": "710", "categoria": "Bombachas", "precio": 9500.0}, {"marca": "FAIRUZ", "articulo": "3033", "categoria": "Body", "precio": 15100.0}, {"marca": "FAIRUZ", "articulo": "3040", "categoria": "Body", "precio": 15000.0}, {"marca": "FAIRUZ", "articulo": "3060", "categoria": "Body", "precio": 16800.0}, {"marca": "TIENTO", "articulo": "135", "categoria": "Conjuntos", "precio": 10600.0}, {"marca": "TIENTO", "articulo": "209", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "TIENTO", "articulo": "219", "categoria": "Conjuntos", "precio": 13300.0}, {"marca": "TIENTO", "articulo": "309", "categoria": "Conjuntos", "precio": 13400.0}, {"marca": "TIENTO", "articulo": "315", "categoria": "Conjuntos", "precio": 18200.0}, {"marca": "TIENTO", "articulo": "406", "categoria": "Conjuntos", "precio": 9300.0}, {"marca": "TIENTO", "articulo": "422", "categoria": "Conjuntos", "precio": 13400.0}, {"marca": "TIENTO", "articulo": "492", "categoria": "Conjuntos", "precio": 13800.0}, {"marca": "TIENTO", "articulo": "639", "categoria": "Conjuntos", "precio": 14500.0}, {"marca": "TIENTO", "articulo": "663", "categoria": "Conjuntos", "precio": 15000.0}, {"marca": "TIENTO", "articulo": "708", "categoria": "Conjuntos", "precio": 16500.0}, {"marca": "TIENTO", "articulo": "720", "categoria": "Conjuntos", "precio": 16000.0}, {"marca": "TIENTO", "articulo": "727", "categoria": "Conjuntos", "precio": 15600.0}, {"marca": "TIENTO", "articulo": "755", "categoria": "Conjuntos", "precio": 15000.0}, {"marca": "TIENTO", "articulo": "757", "categoria": "Conjuntos", "precio": 18000.0}, {"marca": "TIENTO", "articulo": "760", "categoria": "Conjuntos", "precio": 16700.0}, {"marca": "TIENTO", "articulo": "762", "categoria": "Conjuntos", "precio": 16000.0}, {"marca": "TIENTO", "articulo": "793", "categoria": "Conjuntos", "precio": 17000.0}, {"marca": "TIENTO", "articulo": "796", "categoria": "Conjuntos", "precio": 15600.0}, {"marca": "TIENTO", "articulo": "813", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "TIENTO", "articulo": "816", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "TIENTO", "articulo": "819", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "TIENTO", "articulo": "821", "categoria": "Conjuntos", "precio": 17700.0}, {"marca": "TIENTO", "articulo": "824", "categoria": "Conjuntos", "precio": 10600.0}, {"marca": "TIENTO", "articulo": "825", "categoria": "Conjuntos", "precio": 15500.0}, {"marca": "TIENTO", "articulo": "826", "categoria": "Conjuntos", "precio": 18500.0}, {"marca": "TIENTO", "articulo": "827", "categoria": "Conjuntos", "precio": 17000.0}, {"marca": "TIENTO", "articulo": "829", "categoria": "Conjuntos", "precio": 17700.0}, {"marca": "TIENTO", "articulo": "831", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "TIENTO", "articulo": "834", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "TIENTO", "articulo": "856", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "TIENTO", "articulo": "905", "categoria": "Conjuntos", "precio": 15900.0}, {"marca": "TIENTO", "articulo": "906", "categoria": "Conjuntos", "precio": 11000.0}, {"marca": "TIENTO", "articulo": "412", "categoria": "Top", "precio": 9300.0}, {"marca": "TIENTO", "articulo": "414", "categoria": "Top", "precio": 9800.0}, {"marca": "TIENTO", "articulo": "414E", "categoria": "Top", "precio": 10800.0}, {"marca": "TIENTO", "articulo": "817", "categoria": "Corpiños", "precio": 11100.0}, {"marca": "TIENTO", "articulo": "823", "categoria": "Corpiños", "precio": 12800.0}, {"marca": "TIENTO", "articulo": "1001", "categoria": "Corpiños", "precio": 13000.0}, {"marca": "TIENTO", "articulo": "1001E", "categoria": "Corpiños", "precio": 15100.0}, {"marca": "TIENTO", "articulo": "1002", "categoria": "Corpiños", "precio": 13000.0}, {"marca": "TIENTO", "articulo": "1003", "categoria": "Corpiños", "precio": 12600.0}, {"marca": "TIENTO", "articulo": "1006", "categoria": "Corpiños", "precio": 13600.0}, {"marca": "TIENTO", "articulo": "1006E", "categoria": "Corpiños", "precio": 15100.0}, {"marca": "TIENTO", "articulo": "1008", "categoria": "Corpiños", "precio": 11800.0}, {"marca": "TIENTO", "articulo": "1008E", "categoria": "Corpiños", "precio": 13500.0}, {"marca": "TIENTO", "articulo": "1100", "categoria": "Corpiños", "precio": 16800.0}, {"marca": "TIENTO", "articulo": "1100E", "categoria": "Corpiños", "precio": 18300.0}, {"marca": "TIENTO", "articulo": "1110", "categoria": "Corpiños", "precio": 17000.0}, {"marca": "TIENTO", "articulo": "1110E", "categoria": "Corpiños", "precio": 18800.0}, {"marca": "TIENTO", "articulo": "1120", "categoria": "Corpiños", "precio": 16000.0}, {"marca": "TIENTO", "articulo": "1120E", "categoria": "Corpiños", "precio": 17200.0}, {"marca": "TIENTO", "articulo": "1300", "categoria": "Corpiños", "precio": 17000.0}, {"marca": "TIENTO", "articulo": "1766", "categoria": "Body", "precio": 16500.0}, {"marca": "TIENTO", "articulo": "1768", "categoria": "Body", "precio": 18200.0}, {"marca": "TIENTO", "articulo": "2000", "categoria": "Bombachas", "precio": 9400.0}, {"marca": "TIENTO", "articulo": "2600", "categoria": "Bombachas", "precio": 12500.0}, {"marca": "TIENTO", "articulo": "2610", "categoria": "Bombachas", "precio": 11600.0}, {"marca": "TIENTO", "articulo": "2620", "categoria": "Bombachas", "precio": 11000.0}, {"marca": "TIENTO", "articulo": "2630", "categoria": "Bombachas", "precio": 11600.0}, {"marca": "TIENTO", "articulo": "2640", "categoria": "Bombachas", "precio": 10400.0}, {"marca": "TIENTO", "articulo": "2650", "categoria": "Bombachas", "precio": 8200.0}, {"marca": "TIENTO", "articulo": "2730", "categoria": "Bombachas", "precio": 9300.0}, {"marca": "TIENTO", "articulo": "2740", "categoria": "Bombachas", "precio": 9900.0}, {"marca": "TIENTO", "articulo": "2757", "categoria": "Bombachas", "precio": 12000.0}, {"marca": "TIENTO", "articulo": "2760", "categoria": "Bombachas", "precio": 6800.0}, {"marca": "TIENTO", "articulo": "2800", "categoria": "Bombachas", "precio": 12600.0}, {"marca": "TIENTO", "articulo": "2803", "categoria": "Bombachas", "precio": 11300.0}, {"marca": "TIENTO", "articulo": "2804", "categoria": "Bombachas", "precio": 11000.0}, {"marca": "TIENTO", "articulo": "2810", "categoria": "Bombachas", "precio": 8800.0}, {"marca": "TIENTO", "articulo": "2900", "categoria": "Bombachas", "precio": 8900.0}, {"marca": "TIENTO", "articulo": "2913", "categoria": "Bombachas", "precio": 10300.0}, {"marca": "TIENTO", "articulo": "2915", "categoria": "Bombachas", "precio": 11600.0}, {"marca": "TIENTO", "articulo": "2920", "categoria": "Bombachas", "precio": 11300.0}, {"marca": "TIENTO", "articulo": "2930", "categoria": "Bombachas", "precio": 11000.0}, {"marca": "TIENTO", "articulo": "2950", "categoria": "Bombachas", "precio": 12600.0}, {"marca": "TIENTO", "articulo": "532", "categoria": "Trusa", "precio": 20200.0}, {"marca": "TIENTO", "articulo": "532E", "categoria": "Trusa", "precio": 26200.0}, {"marca": "TIENTO", "articulo": "532SE", "categoria": "Trusa", "precio": 31100.0}, {"marca": "COCOT", "articulo": "41", "categoria": "Medias", "precio": 10900.0}, {"marca": "COCOT", "articulo": "62", "categoria": "Medias", "precio": 10100.0}, {"marca": "COCOT", "articulo": "64", "categoria": "Medias", "precio": 6000.0}, {"marca": "COCOT", "articulo": "65", "categoria": "Medias", "precio": 4700.0}, {"marca": "COCOT", "articulo": "66", "categoria": "Medias", "precio": 4900.0}, {"marca": "COCOT", "articulo": "67", "categoria": "Medias", "precio": 10100.0}, {"marca": "COCOT", "articulo": "68", "categoria": "Medias", "precio": 6900.0}, {"marca": "COCOT", "articulo": "71", "categoria": "Medias", "precio": 6700.0}, {"marca": "COCOT", "articulo": "72", "categoria": "Medias", "precio": 11500.0}, {"marca": "COCOT", "articulo": "76", "categoria": "Medias", "precio": 5500.0}, {"marca": "COCOT", "articulo": "86", "categoria": "Medias", "precio": 11000.0}, {"marca": "COCOT", "articulo": "91", "categoria": "Medias", "precio": 12100.0}, {"marca": "COCOT", "articulo": "97", "categoria": "Medias", "precio": 5500.0}, {"marca": "COCOT", "articulo": "220", "categoria": "Medias", "precio": 4600.0}, {"marca": "COCOT", "articulo": "400", "categoria": "Medias", "precio": 7800.0}, {"marca": "COCOT", "articulo": "405", "categoria": "Medias", "precio": 8900.0}, {"marca": "COCOT", "articulo": "420", "categoria": "Medias", "precio": 2300.0}, {"marca": "COCOT", "articulo": "422", "categoria": "Medias", "precio": 2600.0}, {"marca": "COCOT", "articulo": "473", "categoria": "Medias", "precio": 10000.0}, {"marca": "COCOT", "articulo": "483", "categoria": "Medias", "precio": 2200.0}, {"marca": "COCOT", "articulo": "495", "categoria": "Medias", "precio": 8800.0}, {"marca": "COCOT", "articulo": "547", "categoria": "Medias", "precio": 11000.0}, {"marca": "COCOT", "articulo": "725", "categoria": "Medias", "precio": 8900.0}, {"marca": "COCOT", "articulo": "1002", "categoria": "Medias", "precio": 4200.0}, {"marca": "COCOT", "articulo": "1053", "categoria": "Medias", "precio": 4900.0}, {"marca": "COCOT", "articulo": "2504", "categoria": "Medias", "precio": 8200.0}, {"marca": "COCOT", "articulo": "2550", "categoria": "Medias", "precio": 3600.0}, {"marca": "COCOT", "articulo": "3223", "categoria": "Medias", "precio": 9900.0}, {"marca": "COCOT", "articulo": "3228", "categoria": "Medias", "precio": 8200.0}, {"marca": "COCOT", "articulo": "3249", "categoria": "Medias", "precio": 10600.0}, {"marca": "COCOT", "articulo": "3255", "categoria": "Medias", "precio": 3900.0}, {"marca": "COCOT", "articulo": "3256", "categoria": "Medias", "precio": 4600.0}, {"marca": "COCOT", "articulo": "3259", "categoria": "Medias", "precio": 3700.0}, {"marca": "COCOT", "articulo": "3300", "categoria": "Medias", "precio": 3200.0}, {"marca": "COCOT", "articulo": "6190", "categoria": "Bombachas Laser", "precio": 5600.0}, {"marca": "COCOT", "articulo": "6191", "categoria": "Bombachas Laser", "precio": 6400.0}, {"marca": "COCOT", "articulo": "6193", "categoria": "Bombachas Laser", "precio": 7600.0}, {"marca": "COCOT", "articulo": "6194", "categoria": "Bombachas Laser", "precio": 5300.0}, {"marca": "COCOT", "articulo": "6196", "categoria": "Bombachas Laser", "precio": 5300.0}, {"marca": "COCOT", "articulo": "7500", "categoria": "Fajas", "precio": 22600.0}, {"marca": "COCOT", "articulo": "7501", "categoria": "Fajas", "precio": 22600.0}, {"marca": "COCOT", "articulo": "7502", "categoria": "Fajas", "precio": 27200.0}, {"marca": "COCOT", "articulo": "7503", "categoria": "Fajas", "precio": 31000.0}, {"marca": "COCOT", "articulo": "7504", "categoria": "Fajas", "precio": 18100.0}, {"marca": "COCOT", "articulo": "7505", "categoria": "Fajas", "precio": 18900.0}, {"marca": "COCOT", "articulo": "7506", "categoria": "Fajas", "precio": 26800.0}, {"marca": "BRIGITTE", "articulo": "442", "categoria": "Conjuntos", "precio": 20800.0}, {"marca": "BRIGITTE", "articulo": "578", "categoria": "Conjuntos", "precio": 20300.0}, {"marca": "BRIGITTE", "articulo": "1000", "categoria": "Conjuntos", "precio": 20800.0}, {"marca": "BRIGITTE", "articulo": "1602", "categoria": "Conjuntos", "precio": 19700.0}, {"marca": "BRIGITTE", "articulo": "1609", "categoria": "Conjuntos", "precio": 21300.0}, {"marca": "BRIGITTE", "articulo": "1622", "categoria": "Conjuntos", "precio": 24000.0}, {"marca": "BRIGITTE", "articulo": "1628", "categoria": "Conjuntos", "precio": 25500.0}, {"marca": "BRIGITTE", "articulo": "1632", "categoria": "Conjuntos", "precio": 21900.0}, {"marca": "BRIGITTE", "articulo": "1635", "categoria": "Conjuntos", "precio": 18700.0}, {"marca": "BRIGITTE", "articulo": "1637", "categoria": "Conjuntos", "precio": 22700.0}, {"marca": "BRIGITTE", "articulo": "2140", "categoria": "Conjuntos", "precio": 21200.0}, {"marca": "BRIGITTE", "articulo": "2146", "categoria": "Conjuntos", "precio": 21100.0}, {"marca": "BRIGITTE", "articulo": "2200", "categoria": "Conjuntos", "precio": 17200.0}, {"marca": "BRIGITTE", "articulo": "2404", "categoria": "Conjuntos", "precio": 22700.0}, {"marca": "BRIGITTE", "articulo": "2406", "categoria": "Conjuntos", "precio": 21000.0}, {"marca": "BRIGITTE", "articulo": "2415", "categoria": "Conjuntos", "precio": 19700.0}, {"marca": "BRIGITTE", "articulo": "2417", "categoria": "Conjuntos", "precio": 20300.0}, {"marca": "BRIGITTE", "articulo": "2418", "categoria": "Conjuntos", "precio": 21200.0}, {"marca": "BRIGITTE", "articulo": "2420", "categoria": "Conjuntos", "precio": 19800.0}, {"marca": "BRIGITTE", "articulo": "2422", "categoria": "Conjuntos", "precio": 18900.0}, {"marca": "BRIGITTE", "articulo": "2424", "categoria": "Conjuntos", "precio": 18900.0}, {"marca": "BRIGITTE", "articulo": "2426", "categoria": "Conjuntos", "precio": 19100.0}, {"marca": "BRIGITTE", "articulo": "2428", "categoria": "Conjuntos", "precio": 18900.0}, {"marca": "BRIGITTE", "articulo": "763", "categoria": "Corpiños", "precio": 18800.0}, {"marca": "BRIGITTE", "articulo": "764", "categoria": "Corpiños", "precio": 19100.0}, {"marca": "BRIGITTE", "articulo": "1700", "categoria": "Corpiños", "precio": 11800.0}, {"marca": "BRIGITTE", "articulo": "1702", "categoria": "Corpiños", "precio": 10800.0}, {"marca": "BRIGITTE", "articulo": "1706", "categoria": "Corpiños", "precio": 19500.0}, {"marca": "BRIGITTE", "articulo": "1708", "categoria": "Corpiños", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "1714", "categoria": "Corpiños", "precio": 14600.0}, {"marca": "BRIGITTE", "articulo": "1716", "categoria": "Corpiños", "precio": 19200.0}, {"marca": "BRIGITTE", "articulo": "2440", "categoria": "Corpiños", "precio": 17800.0}, {"marca": "BRIGITTE", "articulo": "1710", "categoria": "Top", "precio": 11300.0}, {"marca": "BRIGITTE", "articulo": "1712", "categoria": "Top", "precio": 14200.0}, {"marca": "BRIGITTE", "articulo": "1718", "categoria": "Top", "precio": 16900.0}, {"marca": "BRIGITTE", "articulo": "B1", "categoria": "Top", "precio": 16000.0}, {"marca": "BRIGITTE", "articulo": "B6", "categoria": "Top", "precio": 20200.0}, {"marca": "BRIGITTE", "articulo": "B8", "categoria": "Top", "precio": 20100.0}, {"marca": "BRIGITTE", "articulo": "B9", "categoria": "Top", "precio": 20400.0}, {"marca": "BRIGITTE", "articulo": "B15", "categoria": "Top", "precio": 21200.0}, {"marca": "BRIGITTE", "articulo": "B30", "categoria": "Top", "precio": 17000.0}, {"marca": "BRIGITTE", "articulo": "B50", "categoria": "Top", "precio": 19700.0}, {"marca": "BRIGITTE", "articulo": "B64", "categoria": "Top", "precio": 18500.0}, {"marca": "BRIGITTE", "articulo": "B67", "categoria": "Top", "precio": 20100.0}, {"marca": "BRIGITTE", "articulo": "G5", "categoria": "Calza", "precio": 23900.0}, {"marca": "BRIGITTE", "articulo": "G58", "categoria": "Calza", "precio": 19800.0}, {"marca": "BRIGITTE", "articulo": "604", "categoria": "Pack", "precio": 13600.0}, {"marca": "BRIGITTE", "articulo": "606", "categoria": "Pack", "precio": 12300.0}, {"marca": "BRIGITTE", "articulo": "610", "categoria": "Pack", "precio": 14200.0}, {"marca": "BRIGITTE", "articulo": "638", "categoria": "Pack", "precio": 13500.0}, {"marca": "BRIGITTE", "articulo": "642", "categoria": "Pack", "precio": 15700.0}, {"marca": "BRIGITTE", "articulo": "705", "categoria": "Pack", "precio": 12900.0}, {"marca": "BRIGITTE", "articulo": "707", "categoria": "Pack", "precio": 12500.0}, {"marca": "BRIGITTE", "articulo": "800", "categoria": "Pack", "precio": 11400.0}, {"marca": "BRIGITTE", "articulo": "801", "categoria": "Pack", "precio": 11900.0}, {"marca": "BRIGITTE", "articulo": "802", "categoria": "Pack", "precio": 11900.0}, {"marca": "BRIGITTE", "articulo": "803", "categoria": "Pack", "precio": 11800.0}, {"marca": "BRIGITTE", "articulo": "804", "categoria": "Pack", "precio": 11800.0}, {"marca": "BRIGITTE", "articulo": "805", "categoria": "Pack", "precio": 6500.0}, {"marca": "BRIGITTE", "articulo": "4100", "categoria": "Pack", "precio": 11800.0}, {"marca": "BRIGITTE", "articulo": "4102", "categoria": "Pack", "precio": 11900.0}, {"marca": "BRIGITTE", "articulo": "4104", "categoria": "Pack", "precio": 12500.0}, {"marca": "BRIGITTE", "articulo": "4106", "categoria": "Pack", "precio": 13500.0}, {"marca": "BRIGITTE", "articulo": "4108", "categoria": "Pack", "precio": 5500.0}, {"marca": "BRIGITTE", "articulo": "4110", "categoria": "Pack", "precio": 15500.0}, {"marca": "BRIGITTE", "articulo": "4112", "categoria": "Pack", "precio": 14400.0}, {"marca": "BRIGITTE", "articulo": "4114", "categoria": "Pack", "precio": 14600.0}, {"marca": "BRIGITTE", "articulo": "4116", "categoria": "Pack", "precio": 12300.0}, {"marca": "BRIGITTE", "articulo": "4118", "categoria": "Pack", "precio": 6500.0}, {"marca": "BRIGITTE", "articulo": "4120", "categoria": "Pack", "precio": 7400.0}, {"marca": "BRIGITTE", "articulo": "4122", "categoria": "Pack", "precio": 7400.0}, {"marca": "BRIGITTE", "articulo": "4200", "categoria": "Pack", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "4202", "categoria": "Pack", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "4204", "categoria": "Pack", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "4206", "categoria": "Pack", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "4208", "categoria": "Pack", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "4210", "categoria": "Pack", "precio": 14800.0}, {"marca": "BRIGITTE", "articulo": "4300", "categoria": "Pack", "precio": 11800.0}, {"marca": "BRIGITTE", "articulo": "4302", "categoria": "Pack", "precio": 12300.0}, {"marca": "BRIGITTE", "articulo": "4304", "categoria": "Pack", "precio": 12700.0}, {"marca": "BRIGITTE", "articulo": "4310", "categoria": "Pack", "precio": 11800.0}, {"marca": "BRIGITTE", "articulo": "4314", "categoria": "Pack", "precio": 13500.0}, {"marca": "BRIGITTE", "articulo": "4316", "categoria": "Pack", "precio": 14000.0}, {"marca": "BRIGITTE", "articulo": "4320", "categoria": "Pack", "precio": 12700.0}, {"marca": "BRIGITTE", "articulo": "4322", "categoria": "Pack", "precio": 12700.0}, {"marca": "BRIGITTE", "articulo": "4400", "categoria": "Pack", "precio": 12100.0}, {"marca": "BRIGITTE", "articulo": "4404", "categoria": "Pack", "precio": 12300.0}, {"marca": "BRIGITTE", "articulo": "4406", "categoria": "Pack", "precio": 12300.0}, {"marca": "BRIGITTE", "articulo": "2148", "categoria": "Body", "precio": 23200.0}, {"marca": "BRIGITTE", "articulo": "2149", "categoria": "Body", "precio": 25500.0}, {"marca": "BRIGITTE", "articulo": "2431", "categoria": "Body", "precio": 22100.0}, {"marca": "BRIGITTE", "articulo": "2433", "categoria": "Body", "precio": 22900.0}, {"marca": "BRIGITTE", "articulo": "2439", "categoria": "Body", "precio": 25500.0}, {"marca": "BRIGITTE", "articulo": "B68", "categoria": "Body", "precio": 24500.0}, {"marca": "NATUBEL", "articulo": "19", "categoria": "Conjuntos", "precio": 7900.0}, {"marca": "NATUBEL", "articulo": "21", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "26", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "28", "categoria": "Conjuntos", "precio": 9200.0}, {"marca": "NATUBEL", "articulo": "32", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "46", "categoria": "Conjuntos", "precio": 8400.0}, {"marca": "NATUBEL", "articulo": "48", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "55", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "NATUBEL", "articulo": "63", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "NATUBEL", "articulo": "82", "categoria": "Conjuntos", "precio": 9200.0}, {"marca": "NATUBEL", "articulo": "82E", "categoria": "Conjuntos", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "97", "categoria": "Conjuntos", "precio": 8400.0}, {"marca": "NATUBEL", "articulo": "97E", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "98", "categoria": "Conjuntos", "precio": 10100.0}, {"marca": "NATUBEL", "articulo": "98E", "categoria": "Conjuntos", "precio": 12800.0}, {"marca": "NATUBEL", "articulo": "99", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "NATUBEL", "articulo": "99E", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "NATUBEL", "articulo": "199", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "208", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "NATUBEL", "articulo": "299", "categoria": "Conjuntos", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "302", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "NATUBEL", "articulo": "322", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "NATUBEL", "articulo": "322E", "categoria": "Conjuntos", "precio": 15700.0}, {"marca": "NATUBEL", "articulo": "456", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "459", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "NATUBEL", "articulo": "559", "categoria": "Conjuntos", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "565", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "NATUBEL", "articulo": "565E", "categoria": "Conjuntos", "precio": 15700.0}, {"marca": "NATUBEL", "articulo": "588", "categoria": "Conjuntos", "precio": 14000.0}, {"marca": "NATUBEL", "articulo": "968", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "996", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "NATUBEL", "articulo": "2505", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "2506", "categoria": "Conjuntos", "precio": 10100.0}, {"marca": "NATUBEL", "articulo": "2510", "categoria": "Conjuntos", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "2522E", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "2588", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "NATUBEL", "articulo": "2598", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "NATUBEL", "articulo": "336", "categoria": "Teen", "precio": 6600.0}, {"marca": "NATUBEL", "articulo": "1130", "categoria": "Teen", "precio": 7200.0}, {"marca": "NATUBEL", "articulo": "1139", "categoria": "Teen", "precio": 8400.0}, {"marca": "NATUBEL", "articulo": "1191", "categoria": "Teen", "precio": 7900.0}, {"marca": "NATUBEL", "articulo": "5061", "categoria": "Camisolin", "precio": 15900.0}, {"marca": "NATUBEL", "articulo": "210", "categoria": "Bombachas", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "410", "categoria": "Bombachas", "precio": 10900.0}, {"marca": "NATUBEL", "articulo": "411", "categoria": "Bombachas", "precio": 8400.0}, {"marca": "NATUBEL", "articulo": "420", "categoria": "Bombachas", "precio": 10900.0}, {"marca": "NATUBEL", "articulo": "430", "categoria": "Bombachas", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "440", "categoria": "Bombachas", "precio": 12800.0}, {"marca": "NATUBEL", "articulo": "451", "categoria": "Bombachas", "precio": 15700.0}, {"marca": "NATUBEL", "articulo": "510", "categoria": "Bombachas", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "511", "categoria": "Bombachas", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "520", "categoria": "Bombachas", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "530", "categoria": "Bombachas", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "540", "categoria": "Bombachas", "precio": 14000.0}, {"marca": "NATUBEL", "articulo": "550", "categoria": "Bombachas", "precio": 15400.0}, {"marca": "NATUBEL", "articulo": "710", "categoria": "Bombachas", "precio": 10600.0}, {"marca": "NATUBEL", "articulo": "740", "categoria": "Bombachas", "precio": 13300.0}, {"marca": "NATUBEL", "articulo": "811", "categoria": "Bombachas", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "812", "categoria": "Bombachas", "precio": 10600.0}, {"marca": "NATUBEL", "articulo": "836", "categoria": "Bombachas", "precio": 12100.0}, {"marca": "NATUBEL", "articulo": "909", "categoria": "Bombachas", "precio": 10100.0}, {"marca": "NATUBEL", "articulo": "929", "categoria": "Bombachas", "precio": 10100.0}, {"marca": "NATUBEL", "articulo": "6004", "categoria": "Bombachas", "precio": 8400.0}, {"marca": "NATUBEL", "articulo": "6007", "categoria": "Bombachas", "precio": 8400.0}, {"marca": "NATUBEL", "articulo": "4135", "categoria": "Body", "precio": 17300.0}, {"marca": "NATUBEL", "articulo": "4444", "categoria": "Body", "precio": 16700.0}, {"marca": "NATUBEL", "articulo": "4448", "categoria": "Body", "precio": 18600.0}, {"marca": "NATUBEL", "articulo": "1202", "categoria": "Corpiños", "precio": 9600.0}, {"marca": "NATUBEL", "articulo": "1030", "categoria": "Corpiños", "precio": 14000.0}, {"marca": "NATUBEL", "articulo": "1060", "categoria": "Corpiños", "precio": 14500.0}, {"marca": "NATUBEL", "articulo": "1080", "categoria": "Corpiños", "precio": 10500.0}, {"marca": "NATUBEL", "articulo": "1299", "categoria": "Corpiños", "precio": 11900.0}, {"marca": "NATUMEN", "articulo": "8", "categoria": "Boxer", "precio": 11200.0}, {"marca": "NATUMEN", "articulo": "10", "categoria": "Boxer", "precio": 6700.0}, {"marca": "NATUMEN", "articulo": "11", "categoria": "Boxer", "precio": 7100.0}, {"marca": "NATUMEN", "articulo": "20", "categoria": "Boxer", "precio": 6800.0}, {"marca": "NATUMEN", "articulo": "30", "categoria": "Boxer", "precio": 6800.0}, {"marca": "NATUMEN", "articulo": "44", "categoria": "Boxer", "precio": 7000.0}, {"marca": "NATUMEN", "articulo": "Todos", "categoria": "Kids", "precio": 5100.0}, {"marca": "LODY", "articulo": "590", "categoria": "Conjuntos", "precio": 9300.0}, {"marca": "LODY", "articulo": "901", "categoria": "Conjuntos", "precio": 8000.0}, {"marca": "LODY", "articulo": "939", "categoria": "Conjuntos", "precio": 8000.0}, {"marca": "LODY", "articulo": "5000", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "LODY", "articulo": "5035", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "LODY", "articulo": "5098", "categoria": "Conjuntos", "precio": 12800.0}, {"marca": "LODY", "articulo": "5105", "categoria": "Conjuntos", "precio": 16000.0}, {"marca": "LODY", "articulo": "5105/1", "categoria": "Conjuntos", "precio": 16500.0}, {"marca": "LODY", "articulo": "5109", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "LODY", "articulo": "5145", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "LODY", "articulo": "5145/1", "categoria": "Conjuntos", "precio": 13100.0}, {"marca": "LODY", "articulo": "5154", "categoria": "Conjuntos", "precio": 9300.0}, {"marca": "LODY", "articulo": "5154/1", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "LODY", "articulo": "5155", "categoria": "Conjuntos", "precio": 9000.0}, {"marca": "LODY", "articulo": "5155/1", "categoria": "Conjuntos", "precio": 9300.0}, {"marca": "LODY", "articulo": "5160", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "LODY", "articulo": "5170", "categoria": "Conjuntos", "precio": 8700.0}, {"marca": "LODY", "articulo": "5170/1", "categoria": "Conjuntos", "precio": 8900.0}, {"marca": "LODY", "articulo": "5180", "categoria": "Conjuntos", "precio": 16000.0}, {"marca": "LODY", "articulo": "5207", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LODY", "articulo": "5208", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "LODY", "articulo": "5208/1", "categoria": "Conjuntos", "precio": 12400.0}, {"marca": "LODY", "articulo": "5220", "categoria": "Conjuntos", "precio": 10900.0}, {"marca": "LODY", "articulo": "5236", "categoria": "Conjuntos", "precio": 15200.0}, {"marca": "LODY", "articulo": "5248", "categoria": "Conjuntos", "precio": 14400.0}, {"marca": "LODY", "articulo": "5249", "categoria": "Conjuntos", "precio": 16000.0}, {"marca": "LODY", "articulo": "5250", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LODY", "articulo": "5251", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "LODY", "articulo": "5253", "categoria": "Conjuntos", "precio": 8800.0}, {"marca": "LODY", "articulo": "5254", "categoria": "Conjuntos", "precio": 8100.0}, {"marca": "LODY", "articulo": "5257", "categoria": "Conjuntos", "precio": 8100.0}, {"marca": "LODY", "articulo": "5259", "categoria": "Conjuntos", "precio": 15200.0}, {"marca": "LODY", "articulo": "5260", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "LODY", "articulo": "5265", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "LODY", "articulo": "5266", "categoria": "Conjuntos", "precio": 15100.0}, {"marca": "LODY", "articulo": "5267", "categoria": "Conjuntos", "precio": 12500.0}, {"marca": "LODY", "articulo": "5270", "categoria": "Conjuntos", "precio": 9600.0}, {"marca": "LODY", "articulo": "5272", "categoria": "Conjuntos", "precio": 14400.0}, {"marca": "LODY", "articulo": "5277", "categoria": "Conjuntos", "precio": 13600.0}, {"marca": "LODY", "articulo": "5280", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "LODY", "articulo": "5281", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "LODY", "articulo": "5282", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LODY", "articulo": "5283", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LODY", "articulo": "5284", "categoria": "Conjuntos", "precio": 15700.0}, {"marca": "LODY", "articulo": "5287", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "LODY", "articulo": "5291", "categoria": "Conjuntos", "precio": 10100.0}, {"marca": "LODY", "articulo": "5304", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "LODY", "articulo": "5305", "categoria": "Conjuntos", "precio": 7800.0}, {"marca": "LODY", "articulo": "5314", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "LODY", "articulo": "5316", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LODY", "articulo": "5317", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "LODY", "articulo": "5318", "categoria": "Conjuntos", "precio": 8100.0}, {"marca": "LODY", "articulo": "5319", "categoria": "Conjuntos", "precio": 8100.0}, {"marca": "LODY", "articulo": "5321", "categoria": "Conjuntos", "precio": 9300.0}, {"marca": "LODY", "articulo": "5322", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "LODY", "articulo": "5325", "categoria": "Conjuntos", "precio": 9500.0}, {"marca": "LODY", "articulo": "5326", "categoria": "Conjuntos", "precio": 11500.0}, {"marca": "LODY", "articulo": "5327", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "LODY", "articulo": "5328", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "LODY", "articulo": "5329", "categoria": "Conjuntos", "precio": 9900.0}, {"marca": "LODY", "articulo": "5330", "categoria": "Conjuntos", "precio": 15200.0}, {"marca": "LODY", "articulo": "5331", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "LODY", "articulo": "5332", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "LODY", "articulo": "5333", "categoria": "Conjuntos", "precio": 10400.0}, {"marca": "LODY", "articulo": "5336", "categoria": "Conjuntos", "precio": 12500.0}, {"marca": "LODY", "articulo": "5337", "categoria": "Conjuntos", "precio": 9100.0}, {"marca": "LODY", "articulo": "5338", "categoria": "Conjuntos", "precio": 11800.0}, {"marca": "LODY", "articulo": "5339", "categoria": "Conjuntos", "precio": 15900.0}, {"marca": "LODY", "articulo": "5341", "categoria": "Conjuntos", "precio": 16000.0}, {"marca": "LODY", "articulo": "5342", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "LODY", "articulo": "5343", "categoria": "Conjuntos", "precio": 13200.0}, {"marca": "LODY", "articulo": "5346", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "LODY", "articulo": "5347", "categoria": "Conjuntos", "precio": 16800.0}, {"marca": "LODY", "articulo": "5348", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "LODY", "articulo": "5349", "categoria": "Conjuntos", "precio": 13500.0}, {"marca": "LODY", "articulo": "5350", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "LODY", "articulo": "6129", "categoria": "Conjuntos", "precio": 10600.0}, {"marca": "LODY", "articulo": "6130", "categoria": "Conjuntos", "precio": 10600.0}, {"marca": "LODYMEN", "articulo": "742", "categoria": "Boxer", "precio": 8200.0}, {"marca": "LODYMEN", "articulo": "742/1", "categoria": "Boxer", "precio": 8600.0}, {"marca": "LODYMEN", "articulo": "757", "categoria": "Boxer", "precio": 7500.0}, {"marca": "LODYMEN", "articulo": "757/1", "categoria": "Boxer", "precio": 7900.0}, {"marca": "LODYMEN", "articulo": "804", "categoria": "Boxer", "precio": 9000.0}, {"marca": "LODYMEN", "articulo": "805", "categoria": "Boxer", "precio": 15800.0}, {"marca": "LODYMEN", "articulo": "904", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "904/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "914", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "914/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "931", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "933", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "944", "categoria": "Boxer", "precio": 8200.0}, {"marca": "LODYMEN", "articulo": "944/1", "categoria": "Boxer", "precio": 8600.0}, {"marca": "LODYMEN", "articulo": "950", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "954", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "955", "categoria": "Boxer", "precio": 8200.0}, {"marca": "LODYMEN", "articulo": "955/1", "categoria": "Boxer", "precio": 8600.0}, {"marca": "LODYMEN", "articulo": "956", "categoria": "Boxer", "precio": 8200.0}, {"marca": "LODYMEN", "articulo": "956/1", "categoria": "Boxer", "precio": 8600.0}, {"marca": "LODYMEN", "articulo": "957", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "957/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "958", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "958/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "960", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "961", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "963", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "963/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "964", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "965", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "965/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "966", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "967", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "967/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "968", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "969", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "969/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "970", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "971", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "972", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "972/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "973", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "974", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "974/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "975", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "975/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "976", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "980", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "980/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "981", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "982", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "982/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "983", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "984", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "985", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "985/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "986", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "987", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "987/1", "categoria": "Boxer", "precio": 9700.0}, {"marca": "LODYMEN", "articulo": "988", "categoria": "Boxer", "precio": 9100.0}, {"marca": "LODYMEN", "articulo": "989", "categoria": "Boxer", "precio": 11000.0}, {"marca": "LODYMEN", "articulo": "989/1", "categoria": "Boxer", "precio": 11800.0}, {"marca": "LODYMEN", "articulo": "990", "categoria": "Boxer", "precio": 18500.0}, {"marca": "LODYMEN", "articulo": "990/1", "categoria": "Boxer", "precio": 19500.0}, {"marca": "ANDRESSA", "articulo": "41", "categoria": "Conjuntos", "precio": 12200.0}, {"marca": "ANDRESSA", "articulo": "48", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "ANDRESSA", "articulo": "112", "categoria": "Conjuntos", "precio": 17200.0}, {"marca": "ANDRESSA", "articulo": "217", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "ANDRESSA", "articulo": "450", "categoria": "Conjuntos", "precio": 17400.0}, {"marca": "ANDRESSA", "articulo": "1205", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "ANDRESSA", "articulo": "1216", "categoria": "Conjuntos", "precio": 12500.0}, {"marca": "ANDRESSA", "articulo": "1217", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "ANDRESSA", "articulo": "1224", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "ANDRESSA", "articulo": "1242", "categoria": "Conjuntos", "precio": 17300.0}, {"marca": "ANDRESSA", "articulo": "1243", "categoria": "Conjuntos", "precio": 18900.0}, {"marca": "ANDRESSA", "articulo": "1252", "categoria": "Conjuntos", "precio": 12600.0}, {"marca": "ANDRESSA", "articulo": "2035", "categoria": "Conjuntos", "precio": 25400.0}, {"marca": "ANDRESSA", "articulo": "2044", "categoria": "Conjuntos", "precio": 25900.0}, {"marca": "ANDRESSA", "articulo": "2050", "categoria": "Conjuntos", "precio": 24100.0}, {"marca": "ANDRESSA", "articulo": "2061", "categoria": "Conjuntos", "precio": 29600.0}, {"marca": "ANDRESSA", "articulo": "2244", "categoria": "Conjuntos", "precio": 13200.0}, {"marca": "ANDRESSA", "articulo": "5651", "categoria": "Conjuntos", "precio": 28500.0}, {"marca": "ANDRESSA", "articulo": "5666", "categoria": "Conjuntos", "precio": 18400.0}, {"marca": "ANDRESSA", "articulo": "5673", "categoria": "Conjuntos", "precio": 17600.0}, {"marca": "ANDRESSA", "articulo": "5683", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "ANDRESSA", "articulo": "5690", "categoria": "Conjuntos", "precio": 19100.0}, {"marca": "ANDRESSA", "articulo": "5707", "categoria": "Conjuntos", "precio": 14200.0}, {"marca": "ANDRESSA", "articulo": "5717", "categoria": "Conjuntos", "precio": 18600.0}, {"marca": "ANDRESSA", "articulo": "5719", "categoria": "Conjuntos", "precio": 22400.0}, {"marca": "ANDRESSA", "articulo": "5720", "categoria": "Conjuntos", "precio": 21600.0}, {"marca": "ANDRESSA", "articulo": "5721", "categoria": "Conjuntos", "precio": 22400.0}, {"marca": "ANDRESSA", "articulo": "5723", "categoria": "Conjuntos", "precio": 21400.0}, {"marca": "ANDRESSA", "articulo": "5726", "categoria": "Conjuntos", "precio": 20900.0}, {"marca": "ANDRESSA", "articulo": "5732", "categoria": "Conjuntos", "precio": 19700.0}, {"marca": "ANDRESSA", "articulo": "5736", "categoria": "Conjuntos", "precio": 17800.0}, {"marca": "ANDRESSA", "articulo": "5740", "categoria": "Conjuntos", "precio": 14200.0}, {"marca": "ANDRESSA", "articulo": "5752", "categoria": "Conjuntos", "precio": 29400.0}, {"marca": "ANDRESSA", "articulo": "5758", "categoria": "Conjuntos", "precio": 24400.0}, {"marca": "ANDRESSA", "articulo": "5768", "categoria": "Conjuntos", "precio": 32100.0}, {"marca": "ANDRESSA", "articulo": "5775", "categoria": "Conjuntos", "precio": 21800.0}, {"marca": "FRASHE", "articulo": "545/E", "categoria": "Conjuntos", "precio": 8500.0}, {"marca": "FRASHE", "articulo": "577", "categoria": "Conjuntos", "precio": 8500.0}, {"marca": "FRASHE", "articulo": "584", "categoria": "Conjuntos", "precio": 7800.0}, {"marca": "FRASHE", "articulo": "586", "categoria": "Conjuntos", "precio": 6600.0}, {"marca": "FRASHE", "articulo": "587", "categoria": "Conjuntos", "precio": 8000.0}, {"marca": "FRASHE", "articulo": "588", "categoria": "Conjuntos", "precio": 7200.0}, {"marca": "FRASHE", "articulo": "589", "categoria": "Conjuntos", "precio": 6800.0}, {"marca": "FRASHE", "articulo": "590", "categoria": "Conjuntos", "precio": 7800.0}, {"marca": "FRASHE", "articulo": "630", "categoria": "Conjuntos", "precio": 7300.0}, {"marca": "FRASHE", "articulo": "631/E", "categoria": "Conjuntos", "precio": 8200.0}, {"marca": "FRASHE", "articulo": "710", "categoria": "Conjuntos", "precio": 8500.0}, {"marca": "FRASHE", "articulo": "2000", "categoria": "Conjuntos", "precio": 7800.0}, {"marca": "FRASHE", "articulo": "4002", "categoria": "Conjuntos", "precio": 7500.0}, {"marca": "MELIFERA", "articulo": "B202", "categoria": "Conjuntos", "precio": 13200.0}, {"marca": "MELIFERA", "articulo": "285", "categoria": "Conjuntos", "precio": 7500.0}, {"marca": "MELIFERA", "articulo": "290", "categoria": "Conjuntos", "precio": 8600.0}, {"marca": "MELIFERA", "articulo": "299", "categoria": "Conjuntos", "precio": 8800.0}, {"marca": "MELIFERA", "articulo": "905", "categoria": "Conjuntos", "precio": 10500.0}, {"marca": "MELIFERA", "articulo": "915", "categoria": "Conjuntos", "precio": 10300.0}, {"marca": "MELIFERA", "articulo": "960", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "MELIFERA", "articulo": "2060", "categoria": "Conjuntos", "precio": 14900.0}, {"marca": "MELIFERA", "articulo": "3115", "categoria": "Conjuntos", "precio": 14900.0}, {"marca": "MELIFERA", "articulo": "3120", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "MELIFERA", "articulo": "3125", "categoria": "Conjuntos", "precio": 12300.0}, {"marca": "MELIFERA", "articulo": "3250", "categoria": "Conjuntos", "precio": 9700.0}, {"marca": "MELIFERA", "articulo": "3660", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "MELIFERA", "articulo": "3750", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "MELIFERA", "articulo": "3760", "categoria": "Conjuntos", "precio": 15400.0}, {"marca": "MELIFERA", "articulo": "3810", "categoria": "Conjuntos", "precio": 10800.0}, {"marca": "MELIFERA", "articulo": "3820", "categoria": "Conjuntos", "precio": 11400.0}, {"marca": "MELIFERA", "articulo": "3840", "categoria": "Conjuntos", "precio": 14900.0}, {"marca": "MELIFERA", "articulo": "3860", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "MELIFERA", "articulo": "3890", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "MELIFERA", "articulo": "3895", "categoria": "Conjuntos", "precio": 15000.0}, {"marca": "MELIFERA", "articulo": "4244", "categoria": "Conjuntos", "precio": 11600.0}, {"marca": "MELIFERA", "articulo": "4780", "categoria": "Conjuntos", "precio": 19000.0}, {"marca": "MELIFERA", "articulo": "6000", "categoria": "Conjuntos", "precio": 8000.0}, {"marca": "MELIFERA", "articulo": "6010", "categoria": "Conjuntos", "precio": 9200.0}, {"marca": "MELIFERA", "articulo": "8100", "categoria": "Conjuntos", "precio": 11200.0}, {"marca": "MELIFERA", "articulo": "990", "categoria": "Corpiños", "precio": 7600.0}, {"marca": "MELIFERA", "articulo": "S100", "categoria": "Top", "precio": 7600.0}, {"marca": "MELIFERA", "articulo": "S102", "categoria": "Top", "precio": 11100.0}, {"marca": "MELIFERA", "articulo": "S103", "categoria": "Top", "precio": 10900.0}, {"marca": "MELIFERA", "articulo": "S105", "categoria": "Top", "precio": 7600.0}, {"marca": "MELIFERA", "articulo": "S106", "categoria": "Top", "precio": 8400.0}, {"marca": "MELIFERA", "articulo": "S108", "categoria": "Top", "precio": 9400.0}, {"marca": "MELIFERA", "articulo": "3730", "categoria": "Top", "precio": 7600.0}, {"marca": "MELIFERA", "articulo": "4144", "categoria": "Top", "precio": 8000.0}, {"marca": "MELIFERA", "articulo": "8600", "categoria": "Top", "precio": 16800.0}, {"marca": "MELIFERA", "articulo": "3780", "categoria": "Body", "precio": 11100.0}, {"marca": "MELIFERA", "articulo": "3880", "categoria": "Body", "precio": 10700.0}, {"marca": "MELIFERA", "articulo": "4020", "categoria": "Body", "precio": 9400.0}, {"marca": "MELIFERA", "articulo": "4080", "categoria": "Body", "precio": 15500.0}, {"marca": "MELIFERA", "articulo": "6020", "categoria": "Body", "precio": 10600.0}, {"marca": "MELIFERA", "articulo": "8200", "categoria": "Body", "precio": 9600.0}, {"marca": "MELIFERA", "articulo": "S600", "categoria": "Calza", "precio": 11600.0}, {"marca": "MELIFERA", "articulo": "S610", "categoria": "Calza", "precio": 16700.0}, {"marca": "MELIFERA", "articulo": "S620", "categoria": "Calza", "precio": 17100.0}, {"marca": "MELIFERA", "articulo": "B500", "categoria": "Camisolin", "precio": 13900.0}, {"marca": "MELIFERA", "articulo": "3870", "categoria": "Musculosa", "precio": 7900.0}, {"marca": "MELIFERA", "articulo": "1210", "categoria": "Bombachas", "precio": 3900.0}, {"marca": "MELIFERA", "articulo": "1230", "categoria": "Bombachas", "precio": 4000.0}, {"marca": "MELIFERA", "articulo": "1400", "categoria": "Bombachas", "precio": 6700.0}, {"marca": "MELIFERA", "articulo": "1500", "categoria": "Bombachas", "precio": 6200.0}, {"marca": "MELIFERA", "articulo": "1600", "categoria": "Bombachas", "precio": 6200.0}, {"marca": "MELIFERA", "articulo": "1700", "categoria": "Bombachas", "precio": 6200.0}, {"marca": "MELIFERA", "articulo": "P01", "categoria": "Prolongador", "precio": 2000.0}, {"marca": "MELIFERA", "articulo": "3800", "categoria": "Boxer", "precio": 8700.0}, {"marca": "TAKKI", "articulo": "1010", "categoria": "Bombachas", "precio": 5700.0}, {"marca": "TAKKI", "articulo": "1020", "categoria": "Bombachas", "precio": 6100.0}, {"marca": "TAKKI", "articulo": "1030", "categoria": "Bombachas", "precio": 6600.0}, {"marca": "TAKKI", "articulo": "1040", "categoria": "Bombachas", "precio": 8700.0}, {"marca": "TAKKI", "articulo": "1050", "categoria": "Bombachas", "precio": 9700.0}, {"marca": "TAKKI", "articulo": "1060", "categoria": "Bombachas", "precio": 10200.0}, {"marca": "TAKKI", "articulo": "1070", "categoria": "Bombachas", "precio": 11200.0}, {"marca": "TAKKI", "articulo": "1090", "categoria": "Bombachas", "precio": 9300.0}, {"marca": "TAKKI", "articulo": "1989", "categoria": "Bombachas", "precio": 10100.0}, {"marca": "TAKKI", "articulo": "2010", "categoria": "Bombachas", "precio": 7100.0}, {"marca": "TAKKI", "articulo": "2020", "categoria": "Bombachas", "precio": 8800.0}, {"marca": "TAKKI", "articulo": "2030", "categoria": "Bombachas", "precio": 8800.0}, {"marca": "TAKKI", "articulo": "2040", "categoria": "Bombachas", "precio": 9300.0}, {"marca": "TAKKI", "articulo": "2050", "categoria": "Bombachas", "precio": 8200.0}, {"marca": "TAKKI", "articulo": "2060", "categoria": "Bombachas", "precio": 8400.0}, {"marca": "TAKKI", "articulo": "2090", "categoria": "Bombachas", "precio": 6500.0}, {"marca": "TAKKI", "articulo": "4011", "categoria": "Bombachas", "precio": 8600.0}, {"marca": "TAKKI", "articulo": "4020", "categoria": "Bombachas", "precio": 7800.0}, {"marca": "TAKKI", "articulo": "4041", "categoria": "Bombachas", "precio": 11000.0}, {"marca": "TAKKI", "articulo": "4050", "categoria": "Bombachas", "precio": 8600.0}, {"marca": "TAKKI", "articulo": "4060", "categoria": "Bombachas", "precio": 9600.0}, {"marca": "TAKKI", "articulo": "4061", "categoria": "Bombachas", "precio": 8800.0}, {"marca": "TAKKI", "articulo": "4063", "categoria": "Bombachas", "precio": 9100.0}, {"marca": "TAKKI", "articulo": "4064", "categoria": "Bombachas", "precio": 8100.0}, {"marca": "TAKKI", "articulo": "4068", "categoria": "Bombachas", "precio": 11100.0}, {"marca": "TAKKI", "articulo": "4070", "categoria": "Bombachas", "precio": 8000.0}, {"marca": "TAKKI", "articulo": "4071", "categoria": "Bombachas", "precio": 6600.0}, {"marca": "TAKKI", "articulo": "4072", "categoria": "Bombachas", "precio": 8000.0}, {"marca": "TAKKI", "articulo": "4075", "categoria": "Bombachas", "precio": 11400.0}, {"marca": "TAKKI", "articulo": "4076", "categoria": "Bombachas", "precio": 11300.0}, {"marca": "TAKKI", "articulo": "4077", "categoria": "Bombachas", "precio": 10100.0}, {"marca": "TAKKI", "articulo": "4080", "categoria": "Bombachas", "precio": 9600.0}, {"marca": "TAKKI", "articulo": "4081", "categoria": "Bombachas", "precio": 9400.0}, {"marca": "TAKKI", "articulo": "4082", "categoria": "Bombachas", "precio": 10000.0}, {"marca": "TAKKI", "articulo": "4085", "categoria": "Bombachas", "precio": 9500.0}, {"marca": "TAKKI", "articulo": "4090", "categoria": "Bombachas", "precio": 10200.0}, {"marca": "TAKKI", "articulo": "4091", "categoria": "Bombachas", "precio": 7400.0}, {"marca": "TAKKI", "articulo": "4095", "categoria": "Bombachas", "precio": 10000.0}, {"marca": "TAKKI", "articulo": "6000", "categoria": "Bombachas", "precio": 9000.0}, {"marca": "TAKKI", "articulo": "6020", "categoria": "Bombachas", "precio": 8900.0}, {"marca": "TAKKI", "articulo": "6030", "categoria": "Bombachas", "precio": 8800.0}, {"marca": "TAKKI", "articulo": "6040", "categoria": "Bombachas", "precio": 7500.0}, {"marca": "TAKKI", "articulo": "6050", "categoria": "Bombachas", "precio": 8200.0}, {"marca": "TAKKI", "articulo": "8000", "categoria": "Bombachas", "precio": 9200.0}, {"marca": "ALIS", "articulo": "234", "categoria": "Corpiños", "precio": 15000.0}, {"marca": "ALIS", "articulo": "593", "categoria": "Corpiños", "precio": 15100.0}, {"marca": "ALIS", "articulo": "598", "categoria": "Corpiños", "precio": 17600.0}, {"marca": "ALIS", "articulo": "601", "categoria": "Corpiños", "precio": 19400.0}, {"marca": "ALIS", "articulo": "602", "categoria": "Corpiños", "precio": 17900.0}, {"marca": "ALIS", "articulo": "602", "categoria": "Corpiños", "precio": 17900.0}, {"marca": "ALIS", "articulo": "644", "categoria": "Corpiños", "precio": 19200.0}, {"marca": "ALIS", "articulo": "646", "categoria": "Corpiños", "precio": 16100.0}, {"marca": "ALIS", "articulo": "666", "categoria": "Corpiños", "precio": 16700.0}, {"marca": "ALIS", "articulo": "681", "categoria": "Corpiños", "precio": 15800.0}, {"marca": "ALIS", "articulo": "718", "categoria": "Corpiños", "precio": 19000.0}, {"marca": "ALIS", "articulo": "730", "categoria": "Corpiños", "precio": 18700.0}, {"marca": "ALIS", "articulo": "793", "categoria": "Corpiños", "precio": 17300.0}, {"marca": "ALIS", "articulo": "795", "categoria": "Corpiños", "precio": 17300.0}, {"marca": "ALIS", "articulo": "811", "categoria": "Corpiños", "precio": 26100.0}, {"marca": "ALIS", "articulo": "819", "categoria": "Corpiños", "precio": 18500.0}, {"marca": "ALIS", "articulo": "821", "categoria": "Corpiños", "precio": 26100.0}, {"marca": "ALIS", "articulo": "822", "categoria": "Corpiños", "precio": 19900.0}, {"marca": "ALIS", "articulo": "1334", "categoria": "Corpiños", "precio": 16400.0}, {"marca": "ALIS", "articulo": "506", "categoria": "Bombachas", "precio": 4600.0}, {"marca": "ALIS", "articulo": "507", "categoria": "Bombachas", "precio": 5900.0}, {"marca": "ALIS", "articulo": "508", "categoria": "Bombachas", "precio": 6300.0}, {"marca": "ALIS", "articulo": "549", "categoria": "Bombachas", "precio": 6500.0}, {"marca": "ALIS", "articulo": "585", "categoria": "Bombachas", "precio": 6200.0}, {"marca": "ALIS", "articulo": "594", "categoria": "Bombachas", "precio": 6100.0}, {"marca": "ALIS", "articulo": "595", "categoria": "Bombachas", "precio": 6800.0}, {"marca": "ALIS", "articulo": "596", "categoria": "Bombachas", "precio": 7000.0}, {"marca": "ALIS", "articulo": "600", "categoria": "Bombachas", "precio": 6700.0}, {"marca": "ALIS", "articulo": "656", "categoria": "Bombachas", "precio": 5900.0}, {"marca": "ALIS", "articulo": "657", "categoria": "Bombachas", "precio": 6800.0}, {"marca": "ALIS", "articulo": "658", "categoria": "Bombachas", "precio": 7400.0}, {"marca": "ALIS", "articulo": "781", "categoria": "Bombachas", "precio": 4800.0}, {"marca": "ALIS", "articulo": "782", "categoria": "Bombachas", "precio": 6700.0}, {"marca": "ALIS", "articulo": "783", "categoria": "Bombachas", "precio": 7000.0}, {"marca": "ALIS", "articulo": "784", "categoria": "Bombachas", "precio": 6100.0}, {"marca": "ALIS", "articulo": "787", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "ALIS", "articulo": "789", "categoria": "Bombachas", "precio": 7100.0}, {"marca": "ALIS", "articulo": "790", "categoria": "Bombachas", "precio": 8000.0}, {"marca": "ALIS", "articulo": "791", "categoria": "Bombachas", "precio": 6500.0}, {"marca": "ALIS", "articulo": "796", "categoria": "Bombachas", "precio": 6900.0}, {"marca": "ALIS", "articulo": "801", "categoria": "Bombachas", "precio": 7800.0}, {"marca": "ALIS", "articulo": "815", "categoria": "Bombachas", "precio": 8200.0}, {"marca": "ALIS", "articulo": "816", "categoria": "Bombachas", "precio": 7200.0}, {"marca": "ALIS", "articulo": "817", "categoria": "Bombachas", "precio": 8200.0}, {"marca": "ALIS", "articulo": "1220", "categoria": "Bombachas", "precio": 5500.0}, {"marca": "ALIS", "articulo": "1667", "categoria": "Bombachas", "precio": 6400.0}, {"marca": "ALIS", "articulo": "1758", "categoria": "Bombachas", "precio": 6500.0}, {"marca": "ALIS", "articulo": "806", "categoria": "Body", "precio": 37200.0}, {"marca": "ALIS", "articulo": "810", "categoria": "Body", "precio": 37200.0}, {"marca": "ALIS", "articulo": "91", "categoria": "Portaligas", "precio": 11900.0}, {"marca": "SEXI LALI", "articulo": "2011", "categoria": "Conjuntos", "precio": 14700.0}, {"marca": "SEXI LALI", "articulo": "2005", "categoria": "Conjuntos", "precio": 14500.0}, {"marca": "SEXI LALI", "articulo": "919", "categoria": "Corpiño", "precio": 22800.0}, {"marca": "SEXI LALI", "articulo": "2055", "categoria": "Body", "precio": 15600.0}, {"marca": "SEXI LALI", "articulo": "917", "categoria": "Corpiño", "precio": 19500.0}, {"marca": "SEXI LALI", "articulo": "1068", "categoria": "Conjuntos", "precio": 10300.0}, {"marca": "SEXI LALI", "articulo": "1067", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "SEXI LALI", "articulo": "2041", "categoria": "Conjuntos", "precio": 14800.0}, {"marca": "SEXI LALI", "articulo": "2085", "categoria": "Conjuntos", "precio": 15400.0}, {"marca": "SEXI LALI", "articulo": "2007", "categoria": "Conjuntos", "precio": 14200.0}, {"marca": "SEXI LALI", "articulo": "2092", "categoria": "Conjuntos", "precio": 12900.0}, {"marca": "SEXI LALI", "articulo": "2084", "categoria": "Conjuntos", "precio": 13900.0}, {"marca": "SEXI LALI", "articulo": "2094", "categoria": "Conjuntos", "precio": 12100.0}, {"marca": "SEXI LALI", "articulo": "1081", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "SEXI LALI", "articulo": "1068", "categoria": "Conjuntos", "precio": 10300.0}, {"marca": "SEXI LALI", "articulo": "2002", "categoria": "Corpiño", "precio": 16300.0}, {"marca": "SEXI LALI", "articulo": "2003", "categoria": "Corpiño", "precio": 13200.0}, {"marca": "SEXI LALI", "articulo": "1089", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "SEXI LALI", "articulo": "2093", "categoria": "Conjuntos", "precio": 14600.0}, {"marca": "SEXI LALI", "articulo": "2004", "categoria": "Corpiño", "precio": 14800.0}, {"marca": "SEXI LALI", "articulo": "1076", "categoria": "Conjuntos", "precio": 14700.0}, {"marca": "SEXI LALI", "articulo": "1075", "categoria": "Conjuntos", "precio": 13200.0}, {"marca": "SEXI LALI", "articulo": "1075/E", "categoria": "Conjuntos", "precio": 15000.0}, {"marca": "SEXI LALI", "articulo": "1073", "categoria": "Conjuntos", "precio": 14500.0}, {"marca": "SEXI LALI", "articulo": "915", "categoria": "Corpiño", "precio": 10800.0}, {"marca": "SEXI LALI", "articulo": "905", "categoria": "Corpiño", "precio": 11900.0}, {"marca": "SEXI LALI", "articulo": "2046", "categoria": "Conjuntos", "precio": 14600.0}, {"marca": "SEXI LALI", "articulo": "2077", "categoria": "Conjuntos", "precio": 18800.0}, {"marca": "SEXI LALI", "articulo": "2001", "categoria": "Corpiño", "precio": 14300.0}, {"marca": "SEXI LALI", "articulo": "918", "categoria": "Corpiño", "precio": 14800.0}, {"marca": "SEXI LALI", "articulo": "2063/E", "categoria": "Conjuntos", "precio": 18100.0}, {"marca": "SEXI LALI", "articulo": "1073/E", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "SEXI LALI", "articulo": "2082", "categoria": "Conjuntos", "precio": 12700.0}, {"marca": "SEXI LALI", "articulo": "2046/E", "categoria": "Conjuntos", "precio": 18000.0}, {"marca": "SEXI LALI", "articulo": "916", "categoria": "Corpiño", "precio": 12600.0}, {"marca": "SEXI LALI", "articulo": "2010", "categoria": "Conjuntos", "precio": 14400.0}, {"marca": "SEXI LALI", "articulo": "2099", "categoria": "Conjuntos", "precio": 14300.0}, {"marca": "SEXI LALI", "articulo": "1062", "categoria": "Conjuntos", "precio": 12000.0}, {"marca": "SEXI LALI", "articulo": "1058", "categoria": "Conjuntos", "precio": 13600.0}, {"marca": "SEXI LALI", "articulo": "2048", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "SEXI LALI", "articulo": "2064", "categoria": "Conjuntos", "precio": 14900.0}, {"marca": "SEXI LALI", "articulo": "2064/E", "categoria": "Conjuntos", "precio": 21500.0}, {"marca": "SEXI LALI", "articulo": "2063", "categoria": "Conjuntos", "precio": 15400.0}, {"marca": "SEXI LALI", "articulo": "2063/E", "categoria": "Conjuntos", "precio": 18100.0}, {"marca": "SEXI LALI", "articulo": "2065", "categoria": "Conjuntos", "precio": 14700.0}, {"marca": "SEXI LALI", "articulo": "2051", "categoria": "Conjuntos", "precio": 22000.0}, {"marca": "SEXI LALI", "articulo": "2053", "categoria": "Body", "precio": 12600.0}, {"marca": "SEXI LALI", "articulo": "2008", "categoria": "Conjuntos", "precio": 16200.0}, {"marca": "SEXI LALI", "articulo": "2054", "categoria": "Body", "precio": 17400.0}, {"marca": "SEXI LALI", "articulo": "2050", "categoria": "Conjuntos", "precio": 22000.0}, {"marca": "SEXI LALI", "articulo": "2062", "categoria": "Conjuntos", "precio": 15300.0}, {"marca": "SEXI LALI", "articulo": "1075", "categoria": "Conjuntos", "precio": 13200.0}, {"marca": "SEXI LALI", "articulo": "2059", "categoria": "Conjuntos", "precio": 11700.0}, {"marca": "SEXI LALI", "articulo": "2098", "categoria": "Conjuntos", "precio": 8600.0}, {"marca": "SEXI LALI", "articulo": "2091", "categoria": "Conjuntos", "precio": 8300.0}, {"marca": "SEXI LALI", "articulo": "2095", "categoria": "Conjuntos", "precio": 8900.0}, {"marca": "SEXI LALI", "articulo": "1078", "categoria": "Conjuntos", "precio": 7400.0}, {"marca": "SEXI LALI", "articulo": "2083", "categoria": "Conjuntos", "precio": 7600.0}, {"marca": "SEXI LALI", "articulo": "920", "categoria": "Conjuntos", "precio": 5500.0}, {"marca": "SEXI LALI", "articulo": "251/E", "categoria": "Conjuntos", "precio": 17800.0}, {"marca": "SEXI LALI", "articulo": "2097", "categoria": "Conjuntos", "precio": 9000.0}, {"marca": "SEXI LALI", "articulo": "2058", "categoria": "Conjuntos", "precio": 10000.0}, {"marca": "BERLÍN", "articulo": "650", "categoria": "Pack X3", "precio": 10500.0}, {"marca": "BERLÍN", "articulo": "540", "categoria": "Pack X3", "precio": 10800.0}, {"marca": "BERLÍN", "articulo": "50", "categoria": "Pack X3", "precio": 9400.0}, {"marca": "BERLÍN", "articulo": "581", "categoria": "Pack Ve", "precio": 12200.0}, {"marca": "BERLÍN", "articulo": "621", "categoria": "Pack X3", "precio": 9800.0}, {"marca": "BERLÍN", "articulo": "680", "categoria": "Pack X3", "precio": 9500.0}, {"marca": "BERLÍN", "articulo": "1680", "categoria": "Pack X3", "precio": 11100.0}, {"marca": "BERLÍN", "articulo": "681", "categoria": "Pack X3", "precio": 11000.0}, {"marca": "BERLÍN", "articulo": "5800", "categoria": "Pack X3", "precio": 11900.0}, {"marca": "BERLÍN", "articulo": "620", "categoria": "Pack X3", "precio": 8900.0}, {"marca": "BERLÍN", "articulo": "6800", "categoria": "Pack X3", "precio": 10400.0}, {"marca": "BERLÍN", "articulo": "60", "categoria": "Pack X", "precio": 9200.0}, {"marca": "BERLÍN", "articulo": "66", "categoria": "Colales", "precio": 13700.0}, {"marca": "BERLÍN", "articulo": "640", "categoria": "Colales", "precio": 9400.0}, {"marca": "BERLÍN", "articulo": "606", "categoria": "Pack Co", "precio": 11000.0}, {"marca": "BERLÍN", "articulo": "630", "categoria": "Pack X3", "precio": 9900.0}, {"marca": "BERLÍN", "articulo": "654", "categoria": "Pack X3", "precio": 10400.0}, {"marca": "BERLÍN", "articulo": "6210", "categoria": "Pack X3", "precio": 11400.0}, {"marca": "BERLÍN", "articulo": "601", "categoria": "Pack X3", "precio": 11000.0}, {"marca": "BERLÍN", "articulo": "604", "categoria": "Pack Co", "precio": 9700.0}, {"marca": "BERLÍN", "articulo": "600", "categoria": "Pack X3", "precio": 8500.0}, {"marca": "BERLÍN", "articulo": "65", "categoria": "Pack X", "precio": 12400.0}, {"marca": "BERLÍN", "articulo": "6301", "categoria": "Pack X3", "precio": 11300.0}];
+
+/* ==================================================================
+   LÓGICA (no hace falta editar de acá para abajo)
+   ================================================================== */
+(function(){
+"use strict";
+const CART_KEY = "cart_keren_tienda";
+
+const fmt = n => "$" + n.toLocaleString("es-AR", {maximumFractionDigits:0});
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+/* ---------- parser CSV (comillas, comas, saltos de línea) ---------- */
+function parseCSV(text){
+  const rows=[]; let row=[], field="", inQ=false;
+  text = text.replace(/^﻿/,"");
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQ){
+      if(c==='"'){ if(text[i+1]==='"'){field+='"';i++;} else inQ=false; }
+      else field+=c;
+    }
+    else if(c==='"') inQ=true;
+    else if(c===","){ row.push(field); field=""; }
+    else if(c==="\n"||c==="\r"){
+      if(c==="\r"&&text[i+1]==="\n") i++;
+      row.push(field); field=""; rows.push(row); row=[];
+    }
+    else field+=c;
+  }
+  if(field!==""||row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r=>r.some(c=>c.trim()!==""));
+}
+
+const HEADER_MAP = {
+  id:"id",
+  name:"name", nombre:"name",
+  price:"price", precio:"price",
+  category:"category", categoria:"category", "categoría":"category", marca:"category",
+  description:"description", descripcion:"description", "descripción":"description",
+  details:"details", detalles:"details", detalle:"details", incluye:"details",
+  badge:"badge", etiqueta:"badge",
+  nota:"note", note:"note",
+  prendas:"pieces", pieces:"pieces",
+  image:"image", imagen:"image",
+  available:"available", disponible:"available", stock:"available",
+  variants:"variants", variantes:"variants", talles:"variants",
+  colores:"colors", color:"colors", colors:"colors",
+};
+
+function parsePrice(raw){
+  let v=String(raw).trim().replace(/[$\s]/g,"");
+  if(!v) return NaN;
+  if(v.includes(",")&&v.includes(".")){
+    if(v.lastIndexOf(",")>v.lastIndexOf(".")) v=v.replace(/\./g,"").replace(",",".");
+    else v=v.replace(/,/g,"");
+  } else if(v.includes(",")){
+    v=/,\d{1,2}$/.test(v)?v.replace(",","."):v.replace(/,/g,"");
+  } else if(/^\d{1,3}(\.\d{3})+$/.test(v)){
+    v=v.replace(/\./g,"");
+  }
+  return Number(v);
+}
+
+function parseAvailable(raw){
+  const v=String(raw).trim().toLowerCase();
+  if(v==="") return true;
+  if(["true","sí","si","yes","1","x","disponible"].includes(v)) return true;
+  if(["false","no","0","agotado"].includes(v)) return false;
+  return true;
+}
+
+function rowsToProducts(rows){
+  if(rows.length<2) return [];
+  const headers=rows[0].map(h=>HEADER_MAP[h.trim().toLowerCase()]||null);
+  if(!headers.includes("id")||!headers.includes("name")||!headers.includes("price")) return [];
+  const out=[]; const seen=new Set();
+  for(let i=1;i<rows.length;i++){
+    const p={};
+    headers.forEach((k,c)=>{ if(k) p[k]=(rows[i][c]||"").trim(); });
+    const price=parsePrice(p.price);
+    if(!p.id||seen.has(p.id)||!p.name||!isFinite(price)||price<0){
+      console.warn("Tienda: fila "+(i+1)+" ignorada (datos incompletos o inválidos).");
+      continue;
+    }
+    seen.add(p.id);
+    const variants=(p.variants||"").split("|").map(v=>v.trim()).filter(Boolean);
+    const colors=(p.colors||"").split("|").map(v=>v.trim()).filter(Boolean);
+    // solo se aceptan valores que parezcan URL/archivo de imagen real;
+    // texto suelto como "si"/"no"/"Falta" (notas internas de "¿tengo la foto?")
+    // se ignora y el producto queda con el placeholder "Foto próximamente"
+    const images=(p.image||"").split("|").map(v=>v.trim()).filter(Boolean)
+      .filter(v=>/^https?:\/\//i.test(v)||/\.(jpe?g|png|gif|webp|avif)(\?.*)?$/i.test(v));
+    // detalles: items separados por "|" o saltos de línea dentro de la celda
+    const details=(p.details||"").split(/\||\n/).map(d=>d.trim()).filter(Boolean);
+    out.push({
+      id:p.id, name:p.name, price:price,
+      category:p.category||"Otros",
+      description:p.description||"",
+      image:images[0]||null,
+      images:images,
+      available:parseAvailable(p.available||""),
+      ...(variants.length?{variants}:{}),
+      ...(colors.length?{colors}:{}),
+      ...(details.length?{details}:{}),
+      ...(p.badge?{badge:p.badge}:{}),
+      ...(p.note?{note:p.note}:{}),
+      ...(p.pieces?{pieces:p.pieces}:{})
+    });
+  }
+  return out;
+}
+
+/* ==================================================================
+   ESTADO GLOBAL
+   ================================================================== */
+let PRODUCTS=[];         // tienda
+let LISTA=null;          // lista de precios {marca, articulo, categoria, precio}
+let vistaActiva="tienda";
+
+// búsqueda y filtro independientes por vista
+const filtros={
+  tienda:{ search:"", chip:"Todos" },
+  lista:{ search:"", chip:"Todos" },
+};
+
+let cart=[];
+try{ cart=JSON.parse(localStorage.getItem(CART_KEY))||[]; }catch(e){ cart=[]; }
+let inCheckout=false;
+const PAGE_SIZE=24;
+let visibleCount=PAGE_SIZE;
+const saveCart=()=>localStorage.setItem(CART_KEY, JSON.stringify(cart));
+
+/* ==================================================================
+   CARGA DE DATOS
+   ================================================================== */
+async function cargarTienda(){
+  try{
+    if(!TIENDA_CSV_URL) throw new Error("sin URL configurada");
+    const res=await fetch(TIENDA_CSV_URL,{cache:"no-store"});
+    if(!res.ok) throw new Error("http "+res.status);
+    PRODUCTS=rowsToProducts(parseCSV(await res.text()));
+    if(!PRODUCTS.length) throw new Error("hoja vacía o encabezados incorrectos");
+  }catch(e){
+    console.warn("Tienda: no se pudo leer el Sheet en vivo ("+e.message+"), usando snapshot.");
+    PRODUCTS=TIENDA_SNAPSHOT.slice();
+  }
+  document.getElementById("tienda-loading").style.display="none";
+  reconciliarCarrito();
+  if(vistaActiva==="tienda"){ renderChips(); renderVista(); }
+}
+
+/* Sincroniza el carrito guardado con el catálogo actual:
+   actualiza precios/nombres que cambiaron en el Sheet y elimina
+   productos que ya no existen o quedaron sin stock. */
+function reconciliarCarrito(){
+  if(!cart.length) return;
+  let cambio=false;
+  cart=cart.filter(i=>{
+    const p=PRODUCTS.find(x=>x.id===i.id);
+    if(!p||!p.available){ cambio=true; return false; }
+    if(i.price!==p.price||i.name!==p.name){
+      i.price=p.price; i.name=p.name; cambio=true;
+    }
+    return true;
+  });
+  if(cambio){ saveCart(); renderCart(); }
+}
+
+/* --- lista de precios: mismo mecanismo que la web original --- */
+function parseTSV(text){ return text.split(/\r?\n/).map(l=>l.split("\t")); }
+function limpiarPrecio(v){
+  if(v==null || String(v).trim()==="") return null;
+  const n=parseFloat(String(v).replace(/[^0-9.-]/g,""));
+  return isNaN(n)?null:n;
+}
+let listaCargando=false;
+async function cargarLista(){
+  if(LISTA||listaCargando) return;
+  listaCargando=true;
+  document.getElementById("lista-loading").style.display="";
+  try{
+    if(typeof CSV_URL==="undefined"||!CSV_URL||CSV_URL.startsWith("PEGAR")) throw new Error("config");
+    const res=await fetch(CSV_URL,{cache:"no-store"});
+    if(!res.ok) throw new Error("http "+res.status);
+    const rows=parseTSV(await res.text());
+    const data=[];
+    for(let i=FILAS_ENCABEZADO;i<rows.length;i++){
+      const r=rows[i];
+      const marca=(r[COL.marca]||"").trim();
+      const art=(r[COL.articulo]||"").trim();
+      const precio=limpiarPrecio(r[COL.precio]);
+      if(!marca||!art||precio==null) continue;
+      data.push({marca, articulo:art.replace(/\.0$/,""), categoria:(r[COL.categoria]||"").trim(), precio});
+    }
+    if(!data.length) throw new Error("vacio");
+    LISTA=data;
+  }catch(e){
+    console.warn("Lista: no se pudo traer datos en vivo ("+e.message+"), usando snapshot.");
+    LISTA=(typeof DATA_SNAPSHOT!=="undefined")?DATA_SNAPSHOT.slice():[];
+  }
+  listaCargando=false;
+  document.getElementById("lista-loading").style.display="none";
+  if(vistaActiva==="lista"){ renderChips(); renderVista(); }
+}
+
+/* ==================================================================
+   CHIPS + BÚSQUEDA (compartidos entre vistas)
+   ================================================================== */
+const chipsEl=document.getElementById("chips");
+const searchInput=document.getElementById("q");
+
+function opcionesChips(){
+  if(vistaActiva==="tienda") return ["Todos",...new Set(PRODUCTS.map(p=>p.category))];
+  if(vistaActiva==="lista" && LISTA) return ["Todos",...new Set(LISTA.map(d=>d.marca))];
+  return [];
+}
+function renderChips(){
+  const ops=opcionesChips();
+  chipsEl.innerHTML="";
+  ops.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="chip"+(c===filtros[vistaActiva].chip?" active":"");
+    b.textContent=c;
+    b.onclick=()=>{
+      filtros[vistaActiva].chip=c;
+      visibleCount=PAGE_SIZE;
+      chipsEl.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));
+      renderVista();
+    };
+    chipsEl.appendChild(b);
+  });
+}
+
+let t;
+searchInput.addEventListener("input",e=>{
+  clearTimeout(t);
+  t=setTimeout(()=>{
+    if(!filtros[vistaActiva]) return;
+    filtros[vistaActiva].search=e.target.value.trim().toLowerCase();
+    visibleCount=PAGE_SIZE;
+    renderVista();
+  },120);
+});
+
+/* ==================================================================
+   RENDER POR VISTA
+   ================================================================== */
+const countEl=document.getElementById("count");
+const gridEl=document.getElementById("grid");
+const loadMoreWrap=document.getElementById("loadMoreWrap");
+const resultsInfo=document.getElementById("resultsInfo");
+
+function renderVista(){
+  if(vistaActiva==="tienda") renderTienda();
+  else if(vistaActiva==="lista") renderLista();
+  else renderCatalogos();
+}
+
+/* ---------- TIENDA ---------- */
+/* Separa "detalles" en: viñetas, nota de talles y cantidad de prendas */
+/* Devuelve el array de fotos de un producto, sea que venga del Sheet
+   (campo images ya armado) o del snapshot (campo image suelto o null). */
+function getImages(p){
+  if(p.images&&p.images.length) return p.images;
+  if(p.image) return [p.image];
+  return [];
+}
+
+function splitDetails(p){
+  const bullets=[]; let note=p.note||null; let pieces=p.pieces||null;
+  let piecesLabel="Prendas"; let priceExtra=null;
+  (p.details||[]).forEach(x=>{
+    if(!note && /^tall(e|es)\b/i.test(x)){ note=x; return; }
+    const m=x.match(/^(\d+)\s*(prendas|packs|unidades|pares)\b/i);
+    if(m && /env[ií]o/i.test(x)){
+      pieces=m[1];
+      piecesLabel=m[2][0].toUpperCase()+m[2].slice(1).toLowerCase();
+      priceExtra="+ envío";
+      return;
+    }
+    bullets.push(x);
+  });
+  return {bullets, note, pieces, piecesLabel, priceExtra};
+}
+
+function renderTienda(){
+  const f=filtros.tienda;
+  const filtered=PRODUCTS.filter(p=>
+    (f.chip==="Todos"||p.category===f.chip)&&
+    (!f.search||(p.name+" "+p.category+" "+(p.description||"")).toLowerCase().includes(f.search))
+  );
+  countEl.textContent=filtered.length+" producto"+(filtered.length===1?"":"s");
+  if(!filtered.length){
+    loadMoreWrap.style.display="none";
+    gridEl.innerHTML='<div class="estado" style="grid-column:1/-1"><div class="big">Sin resultados</div>Probá con otra búsqueda.</div>';
+    return;
+  }
+  const list=filtered.slice(0,visibleCount);
+  const hasMore=filtered.length>visibleCount;
+  loadMoreWrap.style.display=hasMore?"":"none";
+  if(hasMore) resultsInfo.textContent="Mostrando "+list.length+" de "+filtered.length;
+
+  gridEl.innerHTML=list.map(p=>{
+    const d=splitDetails(p);
+    const imgs=getImages(p);
+    return `
+    <article class="pcard">
+      <div class="pimg" data-id="${esc(p.id)}">
+        ${imgs.length?`<img class="pimg-img" src="${esc(imgs[0])}" alt="${esc(p.name)}" loading="lazy">`:`<span class="ph">Foto próximamente</span>`}
+        ${imgs.length>1?`
+          <button type="button" class="pimg-arrow prev" aria-label="Foto anterior">‹</button>
+          <button type="button" class="pimg-arrow next" aria-label="Foto siguiente">›</button>
+          <div class="pimg-dots">${imgs.map((_,i)=>`<span class="pimg-dot${i===0?" active":""}"></span>`).join("")}</div>
+        `:""}
+        ${!p.available?`<span class="badge-agotado">Agotado</span>`:""}
+      </div>
+      <div class="pbody">
+        <span class="pbadge">${esc(p.badge||p.category)}</span>
+        <h3 class="pname">${esc(p.name)}</h3>
+        ${p.description?`<p class="pdesc">${esc(p.description)}</p>`:""}
+        ${d.bullets.length||d.note?`<div class="pincludes">
+          ${d.bullets.length?`<div class="pincludes-title">Incluye</div>
+          <ul class="pincludes-list">${d.bullets.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+          ${d.note?`<p class="pnote">${esc(d.note)}</p>`:""}
+        </div>`:""}
+        <div class="pmeta">
+          ${d.pieces?`<div class="pmeta-qty"><span class="pmeta-label">${esc(d.piecesLabel)}</span><span class="pmeta-qty-value">${esc(d.pieces)}</span></div>`:`<div></div>`}
+          <div class="pmeta-price">
+            <span class="pmeta-label">Precio</span>
+            <span class="pmeta-price-value">${fmt(p.price)}</span>
+            ${d.priceExtra?`<span class="pmeta-price-extra">${esc(d.priceExtra)}</span>`:""}
+          </div>
+        </div>
+        ${p.variants||p.colors?`<div class="variant-row">
+          ${p.variants?`<select class="variant-select" id="var-${esc(p.id)}" aria-label="Talle">
+            ${p.variants.map(v=>`<option>${esc(v)}</option>`).join("")}
+          </select>`:""}
+          ${p.colors?`<select class="variant-select" id="col-${esc(p.id)}" aria-label="Color">
+            ${p.colors.map(v=>`<option>${esc(v)}</option>`).join("")}
+          </select>`:""}
+        </div>`:""}
+        <div class="pactions">
+          <div class="qty-stepper${p.available?"":" off"}" data-id="${esc(p.id)}">
+            <button type="button" class="qty-btn qminus" aria-label="Restar ${esc(p.name)}">−</button>
+            <span class="qty-value">0</span>
+            <button type="button" class="qty-btn qplus" aria-label="Sumar ${esc(p.name)}">+</button>
+          </div>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+
+  gridEl.querySelectorAll(".pimg").forEach(box=>{
+    const p=PRODUCTS.find(x=>x.id===box.dataset.id);
+    const imgs=getImages(p);
+    if(imgs.length<2) return;
+    let idx=0;
+    const imgEl=box.querySelector(".pimg-img");
+    const dots=box.querySelectorAll(".pimg-dot");
+    const show=i=>{
+      idx=(i+imgs.length)%imgs.length;
+      imgEl.src=imgs[idx];
+      dots.forEach((dot,j)=>dot.classList.toggle("active",j===idx));
+    };
+    box.querySelector(".prev").onclick=e=>{ e.stopPropagation(); show(idx-1); };
+    box.querySelector(".next").onclick=e=>{ e.stopPropagation(); show(idx+1); };
+    dots.forEach((dot,j)=>dot.onclick=e=>{ e.stopPropagation(); show(j); });
+    // swipe táctil (celular)
+    let touchX=null;
+    box.addEventListener("touchstart",e=>{ touchX=e.touches[0].clientX; },{passive:true});
+    box.addEventListener("touchend",e=>{
+      if(touchX===null) return;
+      const delta=e.changedTouches[0].clientX-touchX;
+      if(Math.abs(delta)>40) show(idx+(delta<0?1:-1));
+      touchX=null;
+    },{passive:true});
+  });
+
+  gridEl.querySelectorAll(".qty-stepper:not(.off)").forEach(st=>{
+    const p=PRODUCTS.find(x=>x.id===st.dataset.id);
+    const sel=document.getElementById("var-"+p.id);
+    const selC=document.getElementById("col-"+p.id);
+    const valEl=st.querySelector(".qty-value");
+    const varLabel=()=>{
+      const parts=[];
+      if(sel) parts.push(sel.value);
+      if(selC) parts.push(selC.value);
+      return parts.length?parts.join(" / "):null;
+    };
+    const keyOf=()=>{const v=varLabel(); return p.id+(v?"|"+v:"");};
+    const refresh=()=>{const it=cart.find(i=>i.key===keyOf()); valEl.textContent=it?it.qty:0;};
+    if(sel) sel.addEventListener("change",refresh);
+    if(selC) selC.addEventListener("change",refresh);
+    st.querySelector(".qplus").onclick=()=>{ addToCart(p, varLabel()); refresh(); };
+    st.querySelector(".qminus").onclick=()=>{ changeQty(keyOf(),-1); refresh(); };
+    refresh();
+  });
+}
+
+document.getElementById("loadMore").onclick=()=>{
+  visibleCount+=PAGE_SIZE;
+  renderVista();
+};
+
+/* ---------- LISTA DE PRECIOS ---------- */
+function renderLista(){
+  const cont=document.getElementById("lista-content");
+  if(!LISTA){ countEl.textContent=""; return; }
+  const f=filtros.lista;
+  const filtrado=LISTA.filter(d=>
+    (f.chip==="Todos"||d.marca===f.chip)&&
+    (!f.search||(d.articulo+" "+d.marca+" "+d.categoria).toLowerCase().includes(f.search))
+  );
+  countEl.textContent=filtrado.length+" artículo"+(filtrado.length===1?"":"s");
+  if(!filtrado.length){
+    cont.innerHTML='<div class="estado"><div class="big">Sin resultados</div>Probá con otra búsqueda.</div>';
+    return;
+  }
+  const marcas=[...new Set(filtrado.map(d=>d.marca))];
+  cont.innerHTML=marcas.map(m=>{
+    const items=filtrado.filter(d=>d.marca===m);
+    return `
+    <div class="marca-group">
+      <div class="marca-title">${esc(m)} <span class="n">${items.length} art.</span></div>
+      <div class="cards">
+        ${items.map(d=>`
+          <div class="lcard">
+            <div class="cod">${esc(d.articulo)}</div>
+            ${d.categoria?`<div class="cat">${esc(d.categoria)}</div>`:""}
+            <div class="precio">${fmt(d.precio)}</div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ---------- CATÁLOGOS ---------- */
+function renderCatalogos(){
+  const grid=document.getElementById("catalogos-grid");
+  countEl.textContent="";
+  const cats=(typeof CATALOGOS!=="undefined")?CATALOGOS:[];
+  if(!cats.length){
+    grid.innerHTML='<div class="estado"><div class="big">Próximamente</div>Estamos preparando los catálogos.</div>';
+    return;
+  }
+  grid.innerHTML=cats.map(c=>`
+    <a class="catalogo-card" href="${esc(c.url)}" target="_blank" rel="noopener">
+      <span class="info">
+        <span class="nombre">${esc(c.nombre)}</span>
+        ${c.desc?`<span class="desc">${esc(c.desc)}</span>`:""}
+      </span>
+      <span class="flecha">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </span>
+    </a>`).join("");
+}
+
+/* ==================================================================
+   PESTAÑAS
+   ================================================================== */
+function mostrarTab(vista){
+  vistaActiva=vista;
+  ["tienda","lista","catalogos"].forEach(v=>{
+    document.getElementById("tab-"+v).classList.toggle("active", v===vista);
+    document.getElementById("view-"+v).style.display=v===vista?"":"none";
+  });
+  const conControles=vista!=="catalogos";
+  document.getElementById("controls").style.display=conControles?"":"none";
+  loadMoreWrap.style.display="none";
+  if(conControles){
+    searchInput.value=filtros[vista].search;
+    searchInput.placeholder=vista==="tienda"?"Buscar producto…":"Buscar por artículo o marca…";
+  }
+  visibleCount=PAGE_SIZE;
+  if(vista==="lista"&&!LISTA){ renderChips(); cargarLista(); countEl.textContent=""; return; }
+  renderChips();
+  renderVista();
+}
+document.getElementById("tab-tienda").onclick=()=>mostrarTab("tienda");
+document.getElementById("tab-lista").onclick=()=>mostrarTab("lista");
+document.getElementById("tab-catalogos").onclick=()=>mostrarTab("catalogos");
+
+/* ==================================================================
+   CARRITO
+   ================================================================== */
+function addToCart(p,variant){
+  const key=p.id+(variant?"|"+variant:"");
+  const found=cart.find(i=>i.key===key);
+  if(found) found.qty++;
+  else cart.push({key,id:p.id,name:p.name,variant,price:p.price,qty:1});
+  saveCart(); renderCart();
+}
+function changeQty(key,delta){
+  const item=cart.find(i=>i.key===key);
+  if(!item) return;
+  item.qty+=delta;
+  if(item.qty<=0) cart=cart.filter(i=>i.key!==key);
+  saveCart(); renderCart();
+}
+const cartItemsEl=document.getElementById("cartItems");
+const cartCountEl=document.getElementById("cartCount");
+const cartTotalEl=document.getElementById("cartTotal");
+const checkoutBtn=document.getElementById("checkoutBtn");
+const minimoAviso=document.getElementById("minimoAviso");
+const cartTotal=()=>cart.reduce((s,i)=>s+i.price*i.qty,0);
+
+function renderCart(){
+  const totalQty=cart.reduce((s,i)=>s+i.qty,0);
+  cartCountEl.textContent=totalQty;
+  const total=cartTotal();
+  cartTotalEl.textContent=fmt(total);
+
+  // barra flotante
+  document.getElementById("cartBarCount").textContent=totalQty;
+  document.getElementById("cartBarTotal").textContent=fmt(total);
+  document.getElementById("cartBar").classList.toggle("visible", cart.length>0);
+  document.body.classList.toggle("cart-active", cart.length>0);
+  const bajoMinimo=PEDIDO_MINIMO>0&&total<PEDIDO_MINIMO&&cart.length>0;
+  checkoutBtn.disabled=cart.length===0||bajoMinimo;
+  minimoAviso.style.display=bajoMinimo?"flex":"none";
+  if(bajoMinimo){
+    document.getElementById("minimoAvisoTexto").innerHTML=
+      "Compra mínima <strong>"+fmt(PEDIDO_MINIMO)+"</strong>. Te faltan "+fmt(PEDIDO_MINIMO-total)+" para poder finalizar el pedido.";
+  }
+
+  if(!cart.length){
+    cartItemsEl.innerHTML='<div class="cart-empty">Tu pedido está vacío.<br>Agregá productos desde la Tienda.</div>';
+    return;
+  }
+  cartItemsEl.innerHTML=cart.map(i=>`
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${esc(i.name)}</div>
+        ${i.variant?`<div class="cart-item-variant">Talle/var: ${esc(i.variant)}</div>`:""}
+        <div class="cart-item-price">${fmt(i.price)} c/u</div>
+      </div>
+      <div class="qty">
+        <button data-key="${esc(i.key)}" data-d="-1" aria-label="Quitar uno">−</button>
+        <span>${i.qty}</span>
+        <button data-key="${esc(i.key)}" data-d="1" aria-label="Agregar uno">+</button>
+      </div>
+    </div>
+  `).join("");
+  cartItemsEl.querySelectorAll(".qty button").forEach(b=>{
+    b.onclick=()=>changeQty(b.dataset.key,+b.dataset.d);
+  });
+}
+
+/* ---------- drawer ---------- */
+const drawer=document.getElementById("drawer");
+const overlay=document.getElementById("overlay");
+const openDrawer=()=>{drawer.classList.add("open");overlay.classList.add("open");};
+const closeDrawer=()=>{
+  drawer.classList.remove("open");overlay.classList.remove("open");showCartView();
+  if(vistaActiva==="tienda") renderVista(); // sincronizar steppers con el carrito
+};
+document.getElementById("openCart").onclick=openDrawer;
+document.getElementById("cartBarBtn").onclick=openDrawer;
+document.getElementById("closeCart").onclick=closeDrawer;
+overlay.onclick=closeDrawer;
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&drawer.classList.contains("open")) closeDrawer();
+});
+
+/* ---------- vistas del drawer ---------- */
+const formEl=document.getElementById("checkoutForm");
+const backBtn=document.getElementById("backBtn");
+const btnText=document.getElementById("checkoutBtnText");
+const drawerTitle=document.getElementById("drawerTitle");
+function showCartView(){
+  inCheckout=false;
+  cartItemsEl.style.display="";
+  formEl.style.display="none";
+  backBtn.style.display="none";
+  btnText.textContent="Continuar";
+  drawerTitle.textContent="Tu pedido";
+}
+function showFormView(){
+  inCheckout=true;
+  cartItemsEl.style.display="none";
+  formEl.style.display="";
+  backBtn.style.display="";
+  btnText.textContent="Enviar pedido por WhatsApp";
+  drawerTitle.textContent="Tus datos";
+}
+backBtn.onclick=showCartView;
+
+const deliverySelect=document.getElementById("fDelivery");
+deliverySelect.onchange=()=>{
+  const retiro=/retiro/i.test(deliverySelect.value);
+  document.getElementById("envioGroup").style.display=retiro?"none":"";
+};
+
+/* ---------- checkout → WhatsApp ---------- */
+checkoutBtn.onclick=()=>{
+  if(!cart.length) return;
+  if(!inCheckout){ showFormView(); return; }
+  const val=id=>document.getElementById(id).value.trim();
+  const name=val("fName");
+  if(!name){ document.getElementById("fName").focus(); return; }
+  const delivery=deliverySelect.value;
+  const esEnvio=!/retiro/i.test(delivery);
+  const address=val("fAddress"), cp=val("fCP"), ciudad=val("fCiudad"), provincia=val("fProvincia");
+  if(esEnvio){
+    // con envío, todos los datos de dirección son obligatorios
+    for(const [campo,valor] of [["fAddress",address],["fCP",cp],["fCiudad",ciudad],["fProvincia",provincia]]){
+      if(!valor){ document.getElementById(campo).focus(); return; }
+    }
+  }
+  const notes=val("fNotes");
+
+  let msg="¡Hola Lencería Keren! Quiero hacer un pedido mayorista:\n\n";
+  cart.forEach(i=>{
+    msg+="▪ "+i.qty+"x "+i.name+(i.variant?" ("+i.variant+")":"")+" — "+fmt(i.price*i.qty)+"\n";
+  });
+  msg+="\n*Total: "+fmt(cartTotal())+"*\n\n";
+  msg+="Nombre: "+name+"\n";
+  msg+="Entrega: "+delivery+"\n";
+  if(esEnvio){
+    msg+="Dirección: "+address+"\n";
+    msg+="Código postal: "+cp+"\n";
+    msg+="Ciudad: "+ciudad+"\n";
+    msg+="Provincia: "+provincia+"\n";
+  }
+  if(notes) msg+="Notas: "+notes+"\n";
+
+  window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
+};
+
+/* ==================================================================
+   HEADER COMPACTO AL SCROLLEAR
+   (mismo mecanismo que la lista de precios original: header fijo,
+   el body compensa con padding para que el colapso no mueva el
+   contenido ni retroalimente el scroll)
+   ================================================================== */
+const headerEl=document.querySelector("header");
+function ajustarPaddingHeader(){
+  if(!headerEl.classList.contains("compact")){
+    document.body.style.paddingTop=headerEl.offsetHeight+"px";
+  }
+}
+if(typeof ResizeObserver!=="undefined"){
+  new ResizeObserver(ajustarPaddingHeader).observe(headerEl);
+} else {
+  window.addEventListener("resize",ajustarPaddingHeader);
+}
+ajustarPaddingHeader();
+
+let lastY=window.scrollY;
+window.addEventListener("scroll",()=>{
+  const y=window.scrollY;
+  const delta=y-lastY;
+  if(y<80){
+    headerEl.classList.remove("compact");        // cerca del tope: expandido
+  } else if(delta>6){
+    headerEl.classList.add("compact");           // bajando: colapsar
+  } else if(delta<-6){
+    headerEl.classList.remove("compact");        // subiendo: expandir
+  }
+  lastY=y;
+},{passive:true});
+
+/* ==================================================================
+   INIT
+   ================================================================== */
+renderCart();
+cargarTienda();
+if(location.hash==="#lista") mostrarTab("lista");
+else if(location.hash==="#catalogos") mostrarTab("catalogos");
+})();
+</script>
+</body>
+</html>
