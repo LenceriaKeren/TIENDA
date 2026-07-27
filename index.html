@@ -1045,7 +1045,6 @@ function renderTienda(){
         <h3 class="pname">${esc(p.name)}</h3>
         ${p.description?`<p class="pdesc">${esc(p.description)}</p>`:""}
         ${d.bullets.length||d.note?`<div class="pincludes">
-          ${d.bullets.length?`<div class="pincludes-title">Incluye</div>
           <ul class="pincludes-list">${d.bullets.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
           ${d.note?`<p class="pnote">${esc(d.note)}</p>`:""}
         </div>`:""}
@@ -1335,7 +1334,7 @@ checkoutBtn.onclick=()=>{
   }
   const notes=val("fNotes");
 
-  let msg="¡Hola Lencería Keren! Quiero hacer un pedido mayorista:\n\n";
+  let msg="¡Hola!Quiero hacer un pedido:\n\n";
   cart.forEach(i=>{
     msg+="▪ "+i.qty+"x "+i.name+(i.variant?" ("+i.variant+")":"")+" — "+fmt(i.price*i.qty)+"\n";
   });
